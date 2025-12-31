@@ -1,0 +1,143 @@
+/* HEADER */
+.headercontainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    padding: 0 16px;
+    width: 100%;
+    background-color: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/*  LEFT SECTION  */
+.burgercontainer {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.burgerbutton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.imageburger {
+    height: 28px;
+}
+
+.iconcontainer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.imageicon {
+    height: 30px;
+}
+
+.iconname {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/*  SEARCH SECTION */
+.searchmcont {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.searchcontt {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+.searchinput {
+    flex: 1;
+    height: 40px;
+    padding: 0 16px;
+    border: 1px solid #ccc;
+    border-radius: 20px 0 0 20px;
+    outline: none;
+    font-size: 14px;
+}
+
+.searchbtn {
+    height: 40px;
+    width: 60px;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0 20px 20px 0;
+    background-color: #f8f8f8;
+    cursor: pointer;
+}
+
+.searchicon {
+    height: 20px;
+}
+
+/*  RIGHT SECTION */
+.button-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btnheader {
+    height: 36px;
+    padding: 0 14px;
+    border-radius: 18px;
+    border: none;
+    background-color: #f2f2f2;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btnheader:hover {
+    background-color: #e5e5e5;
+}
+
+.signin {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.signinimage {
+    height: 24px;
+}
+
+/*  MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+    .searchcontt {
+        max-width: 420px;
+    }
+}
+
+@media (max-width: 480px) {
+    .searchinput {
+        display: none;
+    }
+
+    .searchbtn {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        border: none;
+    }
+
+    .searchcontt {
+        justify-content: flex-end;
+    }
+
+    .iconname {
+        display: none;
+    }
+}
