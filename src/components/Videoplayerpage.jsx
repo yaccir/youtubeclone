@@ -11,35 +11,39 @@ const Videoplayerpage = () => {
         <div>
         <video className='videoplayer' src="/src/css/qq.mp4"></video>
         <h1>title of the video</h1>
-        <div>
-            <img src="" alt="" />
+       <div className='sbbtn'>
+
+         <div className='videosubscribecont'>
+            <img className='usersubscribeicon' src="/src/images/icon.png" alt="" />
             <div>
                 <h2>channel name</h2>
                 <p>subscribers</p>
             </div>
-            <button>Subscribe</button>
+            <button className='subscribebtn'>Subscribe</button>
 
-            <div>
-                <button><img src="" alt="" /><p>283k</p></button>
-                <button><img src="" alt="" /></button>
-                <button><img src="" alt="" /><p>Share</p></button>
+       </div>
+
+            <div className='thumbsupcontainer'>
+                <button className='likecalculations' ><img className='like' src="/src/images/asideimages/thumbsup.png" alt="" /><p>283k</p></button>
+                <button className='unlikebtnn'><img className='unlikecalculations' src="/src/images/asideimages/thumbsupun.png" alt="" /></button>
+                <button className='sharebtn'><img className='shareimg' src="/src/images/asideimages/share.png" alt="" /><p>Share</p></button>
                 
             </div>
         </div>
 
-        <div>
-            <div>
+        <div className='ddesc'>
+            <div className='viewsvideo'>
                 <p>views</p>
                 <p>time</p>
             </div>
-            <p>
+            <p >
                 description
             </p>
             
             </div>
 
-         <div>
-            <p>total comments</p>
+         <div className='comntsdiv'>
+            <p className='totalcmnts'>total comments</p>
 
             <div>
                 <div>

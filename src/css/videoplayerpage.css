@@ -14,3 +14,85 @@
     height: 100vh;
     background-color: aquamarine;
 }
+
+.videosubscribecont{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.usersubscribeicon{
+    height: 30px;
+    
+}
+.sbbtn{
+    display: flex;
+    justify-content: space-between;
+}
+.subscribebtn{
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+}
+
+.like{
+    height: 30px;
+}
+
+.likecalculations{
+    display: flex;
+    width: 80px;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+     border-radius: 10px;
+     background-color: white;
+     cursor: pointer;
+            border: none;
+    }
+
+.unlikecalculations{
+ height: 30px;
+ cursor: pointer;
+   
+}
+.shareimg{
+    height: 30px;
+}
+.sharebtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+}
+.viewsvideo{
+    display: flex;
+    gap: 15px;
+}
+.totalcmnts{
+    font-size: 27px;
+    font-weight: bold;
+}
+.comntsdiv{
+    margin-top: 15px;
+}
+.ddesc{
+    background-color: rgb(233, 233, 233);
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.thumbsupcontainer{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.unlikebtnn{
+    border-radius: 10px;
+    background-color: white;
+    border: none;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,6 +1,7 @@
 .maincontainercomments{
     display: flex;
     margin: 18px;
+    width: 100%;
 }
 
 .commentsimage2{
@@ -15,7 +16,7 @@
 
 .commentcontainer{
     display: flex;
-    width: 60vw;
+    width: 700px;
     justify-content: space-between;
 }
 .commenteditdel{
