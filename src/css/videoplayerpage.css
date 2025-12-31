@@ -1,9 +1,16 @@
 .videocontainer2{
 
     display: flex;
+    justify-content: space-around;
 
 }
 
 .videoplayer{
     width: 800px;
+}
+
+.videocontainer3{
+    width: 30%;
+    height: 100vh;
+    background-color: aquamarine;
 }
