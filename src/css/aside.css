@@ -1,11 +1,25 @@
 .asidesection{
     width: 250px;
     
+    
     height: 90vh;
     overflow: scroll;
     margin: 10px;
 }
 
+@media (max-width:460px) {
+    /* .asidesection{
+        display: none;
+    } */
+
+    .asidesection{
+      position:absolute;
+      background-color: white;
+      overflow:visible;
+      top: 0px;
+      left: 0px;
+    }
+}
 .asidebtns{
     width: 90%;
     padding-left: 20px;

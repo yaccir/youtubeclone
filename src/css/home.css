@@ -1,3 +1,4 @@
 .maindashboard{
     display: flex;
+    position: relative;
 }

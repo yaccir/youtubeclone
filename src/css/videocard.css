@@ -1,8 +1,8 @@
 .parentvideocard{
     display: flex;
-    margin: 10px;
+    margin-top: 15px;
     flex-direction: column;
-    width: 380px;
+    width: auto;
     height: auto;
  
     box-shadow: 0px 0px 4px black;
@@ -42,37 +42,46 @@
     font-size: 13px;
 }
 
-@media (max-width:930px) {
+/* @media (max-width:950px) {
 
     .parentvideocard{
-        width: 370px;
+        width: 300px;
+    }
+    
+} */
+
+/* @media (max-width:890px) {
+
+    .parentvideocard{
+        width: 300px;
+    }
+    
+} */
+/* @media (max-width:850px) {
+
+    .parentvideocard{
+        width: 380px;
+        
     }
     
 }
-
-@media (max-width:900px) {
-
-    .parentvideocard{
-        width: 310px;
-    }
-    
-}
-@media (max-width:774px) {
+@media (max-width:800px) {
 
     .parentvideocard{
-        width: 250px;
+        width: 280px;
+        
     }
     
-}
+} */
 
-
+/* 
 @media (max-width:680px) {
     
   .parentvideocard{
         width: 100%;
     }
     
-}
+} */
 
 
 
