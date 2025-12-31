@@ -1,0 +1,11 @@
+.divs{
+    width: 200px;
+    height: 100px;
+    background-color: brown;
+}
+
+.parentgrid{
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3,1fr);
+}
