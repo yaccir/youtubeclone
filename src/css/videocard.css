@@ -1,0 +1,85 @@
+.parentvideocard{
+    display: flex;
+    margin: 10px;
+    flex-direction: column;
+    width: 380px;
+    height: auto;
+ 
+    box-shadow: 0px 0px 4px black;
+    border-radius: 9px;
+}
+
+
+.imagethumbcont{
+    width: 100%;
+}
+
+.thumbnailvideo{
+    width: 100%;
+    padding: 5px;
+    
+}
+
+.channeliconuser{
+    width: 30px;
+    border-radius: 50%;
+    border: none;
+    
+}
+
+.detailsconttaboutvideo{
+    display: flex;
+    padding: 10px;
+    gap: 10px
+}
+.details2{
+    display: flex;
+    flex-direction:column;
+}
+.viewscont{
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+}
+
+@media (max-width:930px) {
+
+    .parentvideocard{
+        width: 370px;
+    }
+    
+}
+
+@media (max-width:900px) {
+
+    .parentvideocard{
+        width: 310px;
+    }
+    
+}
+@media (max-width:774px) {
+
+    .parentvideocard{
+        width: 250px;
+    }
+    
+}
+
+
+@media (max-width:680px) {
+    
+  .parentvideocard{
+        width: 100%;
+    }
+    
+}
+
+
+
+.uploadername{
+    font-size: 13px;
+}
+
+.title2{
+    font-size: 18px;
+}

@@ -1,17 +1,16 @@
 import React from 'react'
 import "/src/css/Videocards.css"
+import Videocard from './Videocard'
+
 const Videocards = () => {
   return (
     <div className='parentgrid'>
-        <div className="divs">videocard</div>
-        <div className="divs">videocard</div>
-        <div className="divs">videocard</div>
-        <div className="divs">videocard</div>
-        <div className="divs">videocard</div>
-        <div className="divs">videocard</div>
-        <div className="divs">videocard</div>
-        <div className="divs">videocard</div>
-        <div className="divs">videocard</div>
+        <Videocard/>
+        <Videocard/>
+        <Videocard/>
+          <Videocard/>
+        <Videocard/>
+        <Videocard/>
     </div>
   )
 }
