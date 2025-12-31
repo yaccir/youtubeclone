@@ -2,3 +2,26 @@
     display: flex;
     position: relative;
 }
+
+.tpbtnscontain{
+    width: 100%;
+    display: flex;
+}
+.topbtns{
+    box-sizing: content-box;
+    padding: 5px 10px;
+    min-width: 70px;
+    text-align: center;
+    height: 26px;
+    max-width:auto;
+    background-color: rgb(218, 230, 226);
+    margin: auto;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.topbtns:hover{
+    transform: scale(1.0899);
+}
+.containerr1{
+    width: 100%;
+}

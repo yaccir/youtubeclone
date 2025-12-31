@@ -22,7 +22,7 @@ const Asidesection = () => {
                   <p className="paraaside" >History</p></button></div>
       </div>
       <div className='signindiv'> 
-        <p className='alonetextinf'>
+        <p className='alonetextinfo'>
           Sign in to like videos, comment, and subscribe.
         </p>
         <button className='asidebtns' >
@@ -31,7 +31,7 @@ const Asidesection = () => {
       </div>
 
         <div>
-            <h1>Explore</h1>
+            <h3 className='explore'>Explore</h3>
                 <div><button className='asidebtns'>
                   <img className='asideimages' src="/src/images/asideimages/shopping.png" alt="" />
                   <p className="paraaside">Shopping</p></button></div> 

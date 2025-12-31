@@ -1,6 +1,6 @@
 .asidesection{
     width: 250px;
-    
+    display: none;
     
     height: 90vh;
     overflow: scroll;
@@ -19,6 +19,10 @@
       top: 0px;
       left: 0px;
     }
+}
+.explore{
+    padding-left: 15px;
+    font-size: larger;
 }
 .asidebtns{
     width: 90%;
