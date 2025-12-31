@@ -1,22 +1,25 @@
 import React from 'react'
+import "/src/css/comments.css"
 
 const Comments = () => {
   return (
-    <div>
+    <div className='maincontainercomments'>
 
-    <div><img src="" alt="" /></div>
+    <img className='commentsimage2' src="/src/images/icon.png" alt="" />
     <div>
-        <div>
-        <div>
+        <div className='commentcontainer'>
+        <div className='commentusername'>
             <p>name</p>
             <p>time</p>
         </div>
-            <button>edi</button>
-            <button>delete</button>
+            <div className='commenteditdel'>
+                <button>edit</button>
+                <button>delete</button>
+            </div>
         </div>
         <div>
             <p>comment</p>
-            <div>
+            <div className='likeunlikecommen'>
                 <button>like</button>
                 <button>unlike</button>
             </div>

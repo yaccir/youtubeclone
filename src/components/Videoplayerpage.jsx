@@ -1,6 +1,7 @@
 import React from 'react'
 import "/src/css/videoplayerpage.css"
 import Miniasidevideolist from './Miniasidevideolist'
+import Comments from './Comments'
 
 const Videoplayerpage = () => {
   return (
@@ -51,6 +52,14 @@ const Videoplayerpage = () => {
                     <button>Comment</button>
                 </div>
                 <div>
+                    <Comments/>
+                      <Comments/>
+                        <Comments/>
+                          <Comments/>
+                            <Comments/>
+                              <Comments/>
+                                <Comments/>
+                                  <Comments/>
 
                 </div>
 
