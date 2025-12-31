@@ -1,0 +1,19 @@
+.videolistcard
+{
+    display: flex;
+    margin: 5px;
+}
+
+.thumbnailimage{
+    width: 150px;
+}
+.videodetailss{
+    padding-left: 10px;
+}
+.minititle{
+    font-size: 20px;
+}
+
+.minichannelname{
+    font-size: 13px;
+}

@@ -1,13 +1,14 @@
 import React from 'react'
+import "/src/css/minivideolist.css"
 
 const Miniasidevideolist = () => {
   return (
-    <div>
+    <div className='videolistcard'>
 
-    <img src="" alt="" />
-    <div>
-        <h2>title of video</h2>
-        <h3>channel name</h3>
+    <img className='thumbnailimage' src="/src/images/thumb.jpg" alt="" />
+    <div className='videodetailss'>
+        <h2 className='minititle'>title of video</h2>
+        <h3 className='minichannelname'>channel name</h3>
         <div>
             <p>views</p>
             <p>time ago</p>
