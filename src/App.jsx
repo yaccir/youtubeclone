@@ -1,6 +1,7 @@
 import Header from "./components/Header";
 import Home from "./components/Home";
 import "./App.css"
+import Videoplayerpage from "./components/Videoplayerpage";
 
 function App()
 {
@@ -10,7 +11,8 @@ function App()
     <div className="appcontainer">
 
      <Header/>
-     <Home/>
+     {/* <Home/> */}
+     <Videoplayerpage/>
     </div>
   )
 }
