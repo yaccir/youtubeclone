@@ -11,7 +11,7 @@ function App()
     <div className="appcontainer">
 
      <Header/>
-     {/* <Home/> */}
+     <Home/>
      <Videoplayerpage/>
     </div>
   )
