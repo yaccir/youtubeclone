@@ -7,6 +7,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import X from "./components/X";
 import Uploadvideo from "./components/Uploadvideo";
 import Signinpage from "./components/Signinpage";
+import Createchannel from "./components/Createchannel";
+import Channelview from "./components/Channelview";
 
 
 function App()

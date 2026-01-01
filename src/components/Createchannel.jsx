@@ -1,9 +1,96 @@
-import React from 'react'
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import "/src/css/channel.css";
 
 const Createchannel = () => {
-  return (
-    <div>Createchannel</div>
-  )
-}
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
 
-export default Createchannel
+  const [preview, setPreview] = useState(null);
+  const [channelImage, setChannelImage] = useState(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setChannelImage(file);
+      setPreview(URL.createObjectURL(file));
+    }
+  };
+
+  const onSubmit = (data) => {
+    const formData = new FormData();
+    formData.append("channelName", data.channelName);
+    formData.append("description", data.description);
+    formData.append("channelImage", channelImage);
+
+    // axios.post("/api/channel/create", formData)
+    console.log("Channel created");
+  };
+
+  return (
+    <div className="channel-container">
+      <form className="channel-box" onSubmit={handleSubmit(onSubmit)}>
+        <h2>Create your channel</h2>
+        <p className="subtitle">
+          Choose a name, description and profile picture
+        </p>
+
+        {/* Channel Image */}
+        <div className="channel-pic-wrapper">
+          <label htmlFor="channelImage">
+            <img
+              src={
+                preview ||
+                "https://www.gstatic.com/youtube/img/creator/default_channel.png"
+              }
+              alt="channel"
+              className="channel-pic"
+            />
+          </label>
+
+          <input
+            type="file"
+            id="channelImage"
+            accept="image/*"
+            hidden
+            onChange={handleImageChange}
+          />
+          <p className="upload-text">Upload channel picture</p>
+        </div>
+
+        {/* Channel Name */}
+        <input
+          type="text"
+          placeholder="Channel name"
+          className="input"
+          {...register("channelName", {
+            required: "Channel name is required",
+            minLength: {
+              value: 3,
+              message: "Minimum 3 characters"
+            }
+          })}
+        />
+        {errors.channelName && (
+          <p className="error-text">{errors.channelName.message}</p>
+        )}
+
+        {/* Description */}
+        <textarea
+          placeholder="Channel description (optional)"
+          className="textarea"
+          {...register("description")}
+        />
+
+        <button type="submit" className="create-btn">
+          Create Channel
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default Createchannel;
