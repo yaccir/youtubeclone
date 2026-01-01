@@ -1,8 +1,17 @@
 import React from 'react'
 import "/src/css/videocard.css"
+import { useNavigate } from 'react-router-dom';
 const Videocard = ({description,dislikes,time,thumbNail,title,videoUrl,views,channelName,id }) => {
+
+    const navigate=useNavigate();
+
+function handleclick()
+{
+    navigate(`/watch/${id}`)
+
+}
   return (
-   <div className='parentvideocard'>
+   <div className='parentvideocard' onClick={handleclick}>
 
 
                 <div className='imagethumbcont'>

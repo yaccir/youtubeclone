@@ -40,3 +40,27 @@ export async function addvideo(req,res)
     }
 
 }
+
+
+export async function fetchvideolistbyId(req,res)
+{
+    const {id}=req.params;
+    try{
+        const videolist=await youtubeModel.findById(id);
+            console.log(videolist)
+        if(!videolist)
+           return  res.status(404).json("No Videos found")
+
+        else
+
+         return    res.status(200).json(videolist)
+
+    }
+    catch(err)
+    {
+        return res.send(500).send("error occured 500")
+
+    }
+
+
+}

@@ -1,3 +1,11 @@
+.main-video-container{
+    display: flex;
+    justify-content: space-around;
+    margin: 30px;
+    flex-wrap: wrap;
+}
+
+
 .videocontainer2{
 
     display: flex;
@@ -22,7 +30,7 @@
 
 .videocontainer3{
     width: 30%;
-    height: 100vh;
+    height: auto;
     background-color: aquamarine;
 }
 

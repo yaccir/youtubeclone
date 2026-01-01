@@ -3,20 +3,44 @@ import Home from "./components/Home";
 import "./App.css"
 import Videoplayerpage from "./components/Videoplayerpage";
 import Videocards from "./components/Videocards";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 
 function App()
 {
+  const router=createBrowserRouter([
+
+
+    {
+      path:'/',
+      element: <Home/> 
+    },
+
+    {
+      path:"/watch/:id",
+
+      element:
+      <>
+     
+       <Videoplayerpage/>
+      </>
+    
+    }
+  ])
 
 
   return(
+
+    <RouterProvider router={router}>
     <div className="appcontainer">
 
-     <Header/>
+     {/* <Header/> */}
      {/* <Home/> */}
-     <Videocards/>
+     {/* <Videocards/>
     
-     {/* <Videoplayerpage/> */}
+     <Videoplayerpage/> */}
     </div>
+    </RouterProvider>
   )
 }
 

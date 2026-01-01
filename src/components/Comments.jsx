@@ -1,16 +1,21 @@
 import React from 'react'
 import "/src/css/comments.css"
 
-const Comments = () => {
+const Comments = ({comments}) => {
+    console.log(comments)
   return (
-    <div className='maincontainercomments'>
+    <>
+    {
+        comments.map((item)=>{
 
-    <img className='commentsimage2' src="/src/images/icon.png" alt="" />
+         return   <div className='maincontainercomments'>
+
+    <img className='commentsimage2' src={item.commenterProfile} alt="" />
     <div>
         <div className='commentcontainer'>
         <div className='commentusername'>
-            <p>name</p>
-            <p>time</p>
+            <p>{item.commenterName}</p>
+            <p>{item.updatedAt}</p>
         </div>
             <div className='commenteditdel'>
                 <button>edit</button>
@@ -18,8 +23,8 @@ const Comments = () => {
             </div>
         </div>
         <div>
-            <p>comment</p>
-            <div className='likeunlikecommen'>
+            <p>{item.commentText}</p>
+            <div className='likeunlikecomment'>
                 <button>like</button>
                 <button>unlike</button>
             </div>
@@ -27,6 +32,9 @@ const Comments = () => {
     </div>
 
     </div>
+        })
+    }
+    </>
   )
 }
 
