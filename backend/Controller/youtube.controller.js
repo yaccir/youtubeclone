@@ -1,66 +1,72 @@
 import youtubeModel from "../Models/Youtube.Model.js";
 
-export async function fetchvideolist(req,res)
-{
-
-    try{
-        const videolist=await youtubeModel.find({});
-            console.log(videolist)
-        if(videolist.length==0)
-           return  res.status(404).json("No Videos found")
-
-        else
-
-         return    res.status(200).json(videolist)
-
+// Fetch all videos
+export async function fetchvideolist(req, res) {
+  try {
+    const videolist = await youtubeModel.find({});
+    if (videolist.length === 0) {
+      return res.status(404).json({ message: "No Videos found" });
     }
-    catch(err)
-    {
-        return res.send(500).send("error occured 500")
-
-    }
-
-
+    return res.status(200).json(videolist);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 }
 
-
-export async function addvideo(req,res)
-{
-    try{
-        console.log("kkkkkk")
-        const addedvideo=await youtubeModel.create(req.body)
-        if(addedvideo)
-            res.status(201).json(addedvideo)
-        else
-            res.status(401).json("not added video")
+// Add a video (metadata only)
+export async function addvideo(req, res) {
+  try {
+    const addedvideo = await youtubeModel.create(req.body);
+    if (addedvideo) {
+      return res.status(201).json(addedvideo);
     }
-    catch(err)
-    {
-        return res.status(500).json(err)
-    }
-
+    return res.status(400).json({ message: "Video not added" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: err.message });
+  }
 }
 
-
-export async function fetchvideolistbyId(req,res)
-{
-    const {id}=req.params;
-    try{
-        const videolist=await youtubeModel.findById(id);
-            console.log(videolist)
-        if(!videolist)
-           return  res.status(404).json("No Videos found")
-
-        else
-
-         return    res.status(200).json(videolist)
-
+// Fetch video by ID
+export async function fetchvideolistbyId(req, res) {
+  const { id } = req.params;
+  try {
+    const videolist = await youtubeModel.findById(id);
+    if (!videolist) {
+      return res.status(404).json({ message: "No Video found" });
     }
-    catch(err)
-    {
-        return res.send(500).send("error occured 500")
-
-    }
-
-
+    return res.status(200).json(videolist);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 }
+
+// Upload video file + metadata
+export const addvideotofolder = async (req, res) => {
+  try {
+    const videoFile = req.files.video?.[0];
+    const thumbFile = req.files.thumbnail?.[0];
+
+    if (!videoFile) {
+      return res.status(400).json({ message: "Video required" });
+    }
+
+    const video = new youtubeModel({
+      title: req.body.title,
+      description: req.body.description,
+      videoUrl: `/uploads/videos/${videoFile.filename}`,
+      thumbnailUrl: thumbFile
+        ? `/uploads/thumbnails/${thumbFile.filename}`
+        : null
+    });
+
+    await video.save();
+
+    res.status(201).json(video);
+  } catch (err) {
+    console.error("UPLOAD ERROR:", err);
+    res.status(500).json({ message: err.message });
+  }
+};

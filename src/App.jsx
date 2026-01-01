@@ -4,6 +4,8 @@ import "./App.css"
 import Videoplayerpage from "./components/Videoplayerpage";
 import Videocards from "./components/Videocards";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import X from "./components/X";
+import Uploadvideo from "./components/Uploadvideo";
 
 
 function App()
@@ -25,6 +27,10 @@ function App()
        <Videoplayerpage/>
       </>
     
+    },
+    {
+      path:"/x",
+      element:<Uploadvideo/>
     }
   ])
 
