@@ -5,6 +5,17 @@
 
 }
 
+/* @media (max-width:950px) {
+    .videocontainer2{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .videocontainer3{
+        width: 500px;
+    }
+} */
+
 .videoplayer{
     width: 800px;
 }

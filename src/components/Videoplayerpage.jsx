@@ -31,12 +31,12 @@ const Videoplayerpage = () => {
             </div>
         </div>
 
-        <div className='ddesc'>
+        <div>
             <div className='viewsvideo'>
                 <p>views</p>
                 <p>time</p>
             </div>
-            <p >
+            <p className='ddesc'>
                 description
             </p>
             
