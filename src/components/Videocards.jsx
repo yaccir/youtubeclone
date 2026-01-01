@@ -7,38 +7,41 @@ import { fetchvid } from '../utils/youtubedataslice'
 
 const Videocards = () => {
 
-  const [videoData,setVideoData]=useState([])
-  const dispatch=useDispatch();
+   const dispatch=useDispatch();
 
-  const data=useSelector((store)=>store.youtube.items)
+ const data = useSelector(
+  store => store.youtube.items || []
+);
 
 console.log(data)
-useEffect(()=>{
 
-axios.get("http://localhost:8085/videolist").then((res)=>{
+useEffect(() => {
+  const fetchVideos = async () => {
+    try {
+      const res = await axios.get("http://localhost:8085/videolist");
+      dispatch(fetchvid(res.data));
+    } catch (error) {
+      console.error("Video fetch failed:", error);
+    }
+  };
 
-  dispatch(fetchvid(res.data))
+  fetchVideos();
+}, [dispatch]);
 
-
-});
-
-},[])
 
   return (
     <div className='parentgrid'>
       {
 
         data.map((videoitem)=>{
+          console.log(videoitem)
           return <Videocard
           key={videoitem._id}  
           channelName={videoitem.channelName} 
-          description={videoitem.description} 
-          dislikes={videoitem.dislikes} 
-          likes={videoitem.likes} 
           thumbNail={videoitem.thumbNail}
           title={videoitem.title}
-          videoUrl={videoitem.videoUrl} 
           views={videoitem.views}
+          time={videoitem.updatedAt}
           id={videoitem._id}
             />
         })

@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const youtubeSlice=createSlice({
 name:"youtube",
 initialState:{
-    items:[]
+    items:[],
 },
 reducers:{
     fetchvid:(state,action)=>{
-        state.items.push(action.payload)
+        state.items=(action.payload)
 
     }
 
