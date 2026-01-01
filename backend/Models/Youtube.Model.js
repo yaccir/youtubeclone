@@ -5,8 +5,10 @@ const youtubeSchema = new mongoose.Schema({
   title: { type: String, required: true },
   channelName: { type: String, required: true },
   videoUrl: { type: String, required: true }, // <-- this stores the path or URL
-  views: { type: Number, default: 0 },
+   thumbNail:{type:String,required:true},
+   views: { type: Number, default: 0 },
   description: String,
+ 
   likes: { type: Number, default: 0 },
   dislikes: { type: Number, default: 0 },
  comments: { type: [commentSchema], default: [] }

@@ -6,7 +6,7 @@ const app=express();
 app.use(express.json())
 const PORT =8085;
 
-mongoose.connect('mongodb://127.0.0.1:27017/youtubebe').then(()=>{
+mongoose.connect('mongodb://127.0.0.1:27017/youtubebe12').then(()=>{
     console.log("db connected")
 })
 app.listen(PORT,()=>{
