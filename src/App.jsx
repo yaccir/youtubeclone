@@ -6,6 +6,7 @@ import Videocards from "./components/Videocards";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import X from "./components/X";
 import Uploadvideo from "./components/Uploadvideo";
+import Signinpage from "./components/Signinpage";
 
 
 function App()
@@ -31,6 +32,10 @@ function App()
     {
       path:"/x",
       element:<Uploadvideo/>
+    },
+    {
+      path:"/s",
+      element:<Signinpage/>
     }
   ])
 
