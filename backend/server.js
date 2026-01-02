@@ -1,13 +1,17 @@
 import express from"express";
 import mongoose from "mongoose";
 import { youtuberoutes } from "./Routes/youtuberoute.js";
+import cors from "cors"
 
 const app=express();
-app.use(express.json())
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors())
+
 const PORT =8085;
 app.use("/uploads", express.static("uploads"));
 
-mongoose.connect('mongodb://127.0.0.1:27017/youtubebe12').then(()=>{
+mongoose.connect('mongodb://127.0.0.1:27017/youtubebackend').then(()=>{
     console.log("db connected")
 })
 app.listen(PORT,()=>{

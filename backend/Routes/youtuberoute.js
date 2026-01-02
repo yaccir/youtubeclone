@@ -18,8 +18,12 @@ app.post(  "/videolist",verifytoken,upload.fields([
 );
 
 
+app.post(
+  "/register",
+  upload.single("profilepic"),
+  registeruser
+);
 
-app.post("/register",registeruser)
 
 app.post("/login",login);
 }
