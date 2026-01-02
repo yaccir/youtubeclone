@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import "/src/css/channel.css";
+import axios from "axios";
 
 const Createchannel = () => {
   const {
@@ -20,14 +21,32 @@ const Createchannel = () => {
     }
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    if (!channelImage) {
+      alert("Please select a channel image");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("channelName", data.channelName);
-    formData.append("description", data.description);
-    formData.append("channelImage", channelImage);
+    formData.append("channelDescription", data.description || "");
+    formData.append("channelprofile", channelImage); // MUST match backend
 
-    // axios.post("/api/channel/create", formData)
-    console.log("Channel created");
+    try {
+      const res = await axios.post(
+        "http://localhost:8085/createchannel",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
+      );
+
+      console.log("Channel created:", res.data);
+    } catch (err) {
+      console.error("Create channel error:", err.response?.data || err.message);
+    }
   };
 
   return (

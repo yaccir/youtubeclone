@@ -12,7 +12,7 @@ export async function registeruser(req, res) {
       return res.status(409).json({ message: "User already exists" });
     }
 
-    // image → URL
+    // image to URL
     const profilepic = req.file
       ? `http://localhost:8085/uploads/profilepics/${req.file.filename}`
       : null;

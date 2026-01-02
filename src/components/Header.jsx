@@ -10,7 +10,7 @@ const navigate=useNavigate();
 // const [sinout ,setsinout]=useState(token);
 
 const sinout=localStorage.getItem("token")
-console.log(sinout)
+
 
 
 function handlechannel()
