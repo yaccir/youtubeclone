@@ -18,27 +18,34 @@ function App()
 
     {
       path:'/',
-      element: <Home/> 
+      element: <div>
+          <Header/>
+          <Home/> 
+
+      </div>
     },
 
     {
       path:"/watch/:id",
 
-      element:
-      <>
-     
-       <Videoplayerpage/>
-      </>
+      element:<div>
+        <Header/>
+        <Videoplayerpage/>
+
+      </div>
+    
     
     },
+     {
+      path:"/s",
+      element:<Signinpage/>
+    },
+
     {
       path:"/x",
       element:<Uploadvideo/>
     },
-    {
-      path:"/s",
-      element:<Signinpage/>
-    }
+   
   ])
 
 
