@@ -38,6 +38,9 @@
   color: #5f6368;
   margin-bottom: 20px;
 }
+.vis{
+    display: none;
+}
 
 /* Profile pic */
 .profile-pic-wrapper {

@@ -4,7 +4,6 @@ import "./App.css"
 import Videoplayerpage from "./components/Videoplayerpage";
 import Videocards from "./components/Videocards";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import X from "./components/X";
 import Uploadvideo from "./components/Uploadvideo";
 import Signinpage from "./components/Signinpage";
 import Createchannel from "./components/Createchannel";
@@ -37,13 +36,18 @@ function App()
     
     },
      {
-      path:"/s",
-      element:<Signinpage/>
+      path:"/signin",
+      element:
+      <div>
+        <Header/>
+        <Signinpage/>
+
+      </div>
     },
 
     {
-      path:"/x",
-      element:<Uploadvideo/>
+      path:"/createchannel",
+      element:<Createchannel/>
     },
    
   ])

@@ -1,7 +1,28 @@
 import React from "react";
 import "../css/header.css";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+const navigate=useNavigate();
+function handlechannel()
+{
+  const token=localStorage.getItem("token")
+  if(token)
+  navigate("/createchannel")
+else
+  navigate("/signin");
+  
+}
+function handlesignin()
+{
+navigate("/signin")
+}
+function handlesignout()
+{
+  localStorage.removeItem("token")
+navigate("/")
+}
+
   return (
     <header className="headercontainer">
       
@@ -46,15 +67,23 @@ const Header = () => {
 
       {/* RIGHT SECTION */}
       <div className="button-container">
-        <button className="btnheader">Create Channel</button>
+        <button onClick={handlechannel} className="btnheader">Create Channel</button>
 
-        <button className="signin btnheader">
+        <button onClick={handlesignin} className="signin btnheader">
           <img
             className="signinimage"
             src="/src/images/signin.png"
             alt="Sign in"
           />
           <span>Sign in</span>
+        </button>
+         <button onClick={handlesignout} className="signin btnheader">
+          <img
+            className="signinimage"
+            src="/src/images/signin.png"
+            alt="Sign in"
+          />
+          <span>Sign out</span>
         </button>
       </div>
 

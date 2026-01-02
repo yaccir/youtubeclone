@@ -11,6 +11,12 @@ const Signinpage = () => {
 
   const [preview, setPreview] = useState(null);
   const [profileFile, setProfileFile] = useState(null);
+  const [registername,setRegistername]=useState(false);
+
+  function openreg()
+  {
+    setRegistername(true);
+  }
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -43,7 +49,7 @@ const Signinpage = () => {
         <p className="subtitle">to continue to YouTube</p>
 
         {/* Profile Picture */}
-        <div className="profile-pic-wrapper">
+        <div className={registername?"profile-pic-wrapper":"vis"} >
           <label htmlFor="profilePic">
             <img
               src={
@@ -59,10 +65,20 @@ const Signinpage = () => {
             id="profilePic"
             accept="image/*"
             hidden
+            
             onChange={handleImageChange}
           />
           <p className="upload-text">Add profile photo</p>
         </div>
+        {/* {fullname} */}
+        <input
+          type="text"
+          placeholder="Full Name"
+          className= {registername?"input":"vis"}
+          {...register("fullname", {
+            required: "fullname is required"
+          })}
+        />
 
         {/* Email */}
         <input
@@ -95,12 +111,12 @@ const Signinpage = () => {
         )}
 
         <button type="submit" className="signin-btn">
-          Next
+          {registername?"Register":"Sign in"}
         </button>
 
         <div className="footer-links">
-          <span>Create account</span>
-          <span>Forgot password?</span>
+         <button onClick={openreg}>Create account</button>
+          <button>Forgot Password</button>
         </div>
       </form>
     </div>
