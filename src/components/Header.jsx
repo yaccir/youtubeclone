@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import "../css/header.css";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { settoken } from "../utils/youtubedataslice";
 
 const Header = () => {
 const navigate=useNavigate();
+// const token=localStorage.getItem("token")
+// const [sinout ,setsinout]=useState(token);
+
+const sinout=localStorage.getItem("token")
+console.log(sinout)
+
+
 function handlechannel()
 {
-  const token=localStorage.getItem("token")
-  if(token)
+  
+  
+  if(sinout)
   navigate("/createchannel")
 else
   navigate("/signin");
@@ -20,6 +30,9 @@ navigate("/signin")
 function handlesignout()
 {
   localStorage.removeItem("token")
+  settoken(!sinout)
+
+
 navigate("/")
 }
 
@@ -69,7 +82,7 @@ navigate("/")
       <div className="button-container">
         <button onClick={handlechannel} className="btnheader">Create Channel</button>
 
-        <button onClick={handlesignin} className="signin btnheader">
+        <button onClick={handlesignin} className={sinout?"vis2":"signin btnheader"}>
           <img
             className="signinimage"
             src="/src/images/signin.png"
@@ -77,14 +90,14 @@ navigate("/")
           />
           <span>Sign in</span>
         </button>
-         <button onClick={handlesignout} className="signin btnheader">
+         <div  className={sinout?"signin btnheader":"vis2"}>
           <img
             className="signinimage"
             src="/src/images/signin.png"
             alt="Sign in"
           />
-          <span>Sign out</span>
-        </button>
+         <button onClick={handlesignout}>Sign out</button>
+        </div>
       </div>
 
     </header>

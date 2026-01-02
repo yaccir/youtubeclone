@@ -1,22 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 import "/src/css/sigin.css";
+import { useNavigate } from "react-router-dom";
+import { settoken } from "../utils/youtubedataslice";
+import { useDispatch } from "react-redux";
 
 const Signinpage = () => {
+  const navigate=useNavigate()
+  const dispatch=useDispatch()
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm();
 
+  const [isRegister, setIsRegister] = useState(false);
   const [preview, setPreview] = useState(null);
   const [profileFile, setProfileFile] = useState(null);
-  const [registername,setRegistername]=useState(false);
 
-  function openreg()
-  {
-    setRegistername(true);
-  }
+  const openRegister = () => setIsRegister(!isRegister);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -26,98 +29,147 @@ const Signinpage = () => {
     }
   };
 
-  const onSubmit = (data) => {
-    const formData = new FormData();
-    formData.append("email", data.email);
-    formData.append("password", data.password);
-    formData.append("profilePic", profileFile);
+  useEffect(() => {
 
-    // axios.post("/api/auth/signin", formData)
-    console.log("Form submitted");
+    return () => {
+      if (preview) URL.revokeObjectURL(preview);
+    };
+  }, [preview]);
+
+  const onSubmit = async (data) => {
+    try {
+      if (isRegister) {
+        const formData = new FormData();
+        formData.append("fullname", data.fullname);
+        formData.append("email", data.email);
+        formData.append("password", data.password);
+        if (profileFile) formData.append("profilepic", profileFile);
+
+        const res = await axios.post(
+          "http://localhost:8085/register",
+          formData,
+          { headers: { "Content-Type": "multipart/form-data" } }
+        );
+
+        console.log("REGISTER RESPONSE:", res.data);
+      } else {
+        const res = await axios.post("http://localhost:8085/login", {
+          email: data.email,
+          password: data.password
+        });
+
+        console.log("LOGIN RESPONSE:", res.data);
+
+        if(res.data.token)
+        {
+          localStorage.setItem("token", JSON.stringify(res.data.token));
+          dispatch(settoken(true))
+
+          navigate("/")
+        }
+        else
+        {
+          navigate("/signin")
+        }
+      }
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+    }
   };
 
   return (
     <div className="signin-container">
-      <form className="signin-box" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="signin-box"
+        onSubmit={handleSubmit(onSubmit)}
+        encType="multipart/form-data"
+      >
         <img
           src="https://www.gstatic.com/youtube/img/branding/youtubelogo/svg/youtubelogo.svg"
-          alt="YouTube"
           className="logo"
         />
 
-        <h2>Sign in</h2>
+        <h2>{isRegister ? "Create Account" : "Sign in"}</h2>
         <p className="subtitle">to continue to YouTube</p>
 
-        {/* Profile Picture */}
-        <div className={registername?"profile-pic-wrapper":"vis"} >
-          <label htmlFor="profilePic">
-            <img
-              src={
-                preview ||
-                "https://www.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png"
-              }
-              alt="profile"
-              className="profile-pic"
-            />
-          </label>
-          <input
-            type="file"
-            id="profilePic"
-            accept="image/*"
-            hidden
-            
-            onChange={handleImageChange}
-          />
-          <p className="upload-text">Add profile photo</p>
-        </div>
-        {/* {fullname} */}
-        <input
-          type="text"
-          placeholder="Full Name"
-          className= {registername?"input":"vis"}
-          {...register("fullname", {
-            required: "fullname is required"
-          })}
-        />
+        {isRegister && (
+          <>
+            <div className="profile-pic-wrapper">
+              <label htmlFor="profilePic">
+                <img
+                  src={
+                    preview ||
+                    "https://www.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png"
+                  }
+                  className="profile-pic"
+                />
+              </label>
+              <input
+                type="file"
+                id="profilePic"
+                hidden
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+              <p>Add profile photo</p>
+            </div>
 
-        {/* Email */}
+            <input
+              className="input"
+              placeholder="Full Name"
+              {...register("fullname", {
+                required: isRegister && "Full name required"
+              })}
+            />
+            {errors.fullname && (
+              <p className="error-text">{errors.fullname.message}</p>
+            )}
+          </>
+        )}
+
         <input
-          type="text"
-          placeholder="Email or phone"
           className="input"
-          {...register("email", {
-            required: "Email is required"
-          })}
+          placeholder="Email"
+          {...register("email", { required: "Email required" })}
         />
         {errors.email && (
           <p className="error-text">{errors.email.message}</p>
         )}
 
-        {/* Password */}
         <input
           type="password"
-          placeholder="Enter your password"
           className="input"
+          placeholder="Password"
           {...register("password", {
-            required: "Password is required",
-            minLength: {
-              value: 6,
-              message: "Minimum 6 characters"
-            }
+            required: "Password required",
+            minLength: { value: 6, message: "Min 6 characters" }
           })}
         />
         {errors.password && (
           <p className="error-text">{errors.password.message}</p>
         )}
 
-        <button type="submit" className="signin-btn">
-          {registername?"Register":"Sign in"}
+        <button className="signin-btn" type="submit">
+          {isRegister ? "Register" : "Sign in"}
         </button>
 
-        <div className="footer-links">
-         <button onClick={openreg}>Create account</button>
-          <button>Forgot Password</button>
-        </div>
+        {!isRegister && (
+          <div className="footer-links">
+            <button type="button" onClick={openRegister}>
+              Create account
+            </button>
+            <button type="button">Forgot Password</button>
+          </div>
+        )}
+        
+        {isRegister && (
+          <div className="footer-links">
+            <button type="button" style={{marginLeft:"43%", cursor:"pointer", color:"blue"}} onClick={openRegister}>
+              Sign in instead
+            </button>
+          
+          </div>
+        )}
       </form>
     </div>
   );

@@ -44,6 +44,9 @@
     font-size: 18px;
     font-weight: 600;
 }
+.vis2{
+    display: none;
+}
 
 /*  SEARCH SECTION */
 .searchmcont {

@@ -47,7 +47,12 @@ function App()
 
     {
       path:"/createchannel",
-      element:<Createchannel/>
+      element:
+      <div>
+          <Header/>
+          <Createchannel/>
+      </div>
+    
     },
    
   ])
