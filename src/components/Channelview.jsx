@@ -1,7 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "/src/css/channelview.css";
+import { useParams } from "react-router-dom";
 
 const Channelview = () => {
+  const { id } = useParams();                 // channel id from URL
+  const [channel, setChannel] = useState(null);
+  const [loading, setLoading] = useState(true);
+  console.log(channel)
+
+
+
+  function handleuploadvideo()
+  {
+    navigate("/uploadvideo")
+  }
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    fetch(`http://localhost:8085/channelviewpage/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          setChannel(data.channel);           // ONE channel object
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Channel fetch error:", err);
+        setLoading(false);
+      });
+  }, [id]);
+
+  if (loading) {
+    return <h3 style={{ textAlign: "center" }}>Loading channel...</h3>;
+  }
+
+  if (!channel) {
+    return <h3 style={{ textAlign: "center" }}>Channel not found</h3>;
+  }
+
   return (
     <div className="channel-view">
       {/* Banner */}
@@ -9,23 +50,33 @@ const Channelview = () => {
 
       {/* Header */}
       <div className="channel-header">
-        <img
-          src="https://www.gstatic.com/youtube/img/creator/default_channel.png"
-          alt="channel"
-          className="channel-avatar"
-        />
+<img
+  src={
+    channel.channelprofile
+      ? `http://localhost:8085${channel.channelprofile}`
+      : "https://www.gstatic.com/youtube/img/creator/default_channel.png"
+  }
+  alt="channel"
+  className="channel-avatar"
+/>
+
+
 
         <div className="channel-info">
-          <h2>Yasir Tech</h2>
+          <h2>{channel.channelName}</h2>
+
           <p className="channel-meta">
-            @yasirtech • 12.4K subscribers • 120 videos
+            @{channel.channelName.toLowerCase().replace(/\s/g, "")} •{" "}
+            {channel.subscribers || 0} subscribers •{" "}
+            {channel.videosCount || 0} videos
           </p>
+
           <p className="channel-desc">
-            Programming tutorials, React, JavaScript and backend development.
+            {channel.channelDescription}
           </p>
         </div>
 
-        <button className="subscribe-btn">Subscribe</button>
+        <button  onClick={handleuploadvideo} className="subscribe-btn">Upload Video</button>
       </div>
 
       {/* Tabs */}
@@ -36,7 +87,7 @@ const Channelview = () => {
         <span>About</span>
       </div>
 
-      {/* Videos */}
+      {/* Videos (placeholder for now) */}
       <div className="channel-videos">
         {Array.from({ length: 8 }).map((_, index) => (
           <div key={index} className="video-card">

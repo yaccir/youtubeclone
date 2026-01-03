@@ -56,7 +56,7 @@ function App()
     
     },
         {
-      path:"/channel",
+      path:"/viewchannel/:id",
       element:
       <div>
           <Header/>
@@ -70,6 +70,15 @@ function App()
       <div>
           <Header/>
           <ViewChannels/>
+      </div>
+    
+    },
+         {
+      path:"/uploadvideo",
+      element:
+      <div>
+          <Header/>
+          <Uploadvideo/>
       </div>
     
     },

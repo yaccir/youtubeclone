@@ -1,4 +1,5 @@
 import { createChannel } from "../Controller/channel.controller.js";
+import { channelviewpage } from "../Controller/channelDetails.js";
 import { getchannel } from "../Controller/getChannel.controller.js";
 import { login, registeruser } from "../Controller/user.controller.js";
 import { addvideo, addvideotofolder, fetchvideolist, fetchvideolistbyId, } from "../Controller/youtube.controller.js";
@@ -36,6 +37,7 @@ app.post("/login",login);
 app.post("/createchannel",verifychanneltoken,uploadChannel.single("channelprofile"),createChannel)
 
 app.get("/viewchannels",getchannel);
+app.get("/channelviewpage/:id",channelviewpage);
 
 }
 
