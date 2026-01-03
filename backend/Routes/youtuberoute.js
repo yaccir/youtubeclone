@@ -1,9 +1,11 @@
 import { createChannel } from "../Controller/channel.controller.js";
+import { getchannel } from "../Controller/getChannel.controller.js";
 import { login, registeruser } from "../Controller/user.controller.js";
 import { addvideo, addvideotofolder, fetchvideolist, fetchvideolistbyId, } from "../Controller/youtube.controller.js";
 import  upload  from "../Middlewares/upload.js";
 import uploadChannel from "../Middlewares/uploadchannel.js";
 import uploadprofile from "../Middlewares/uploadprofile.js";
+import { verifychanneltoken } from "../Middlewares/verifychanneltoken.js";
 import { verifytoken } from "../Middlewares/verifytoken.js";
 
 export  function youtuberoutes(app){
@@ -31,6 +33,9 @@ app.post(
 app.post("/login",login);
 
 
-app.post("/createchannel",uploadChannel.single("channelprofile"),createChannel)
+app.post("/createchannel",verifychanneltoken,uploadChannel.single("channelprofile"),createChannel)
+
+app.get("/viewchannels",getchannel);
+
 }
 

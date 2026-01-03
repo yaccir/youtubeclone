@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import "/src/css/channel.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Createchannel = () => {
+
+  const navigate=useNavigate()
   const {
     register,
     handleSubmit,
@@ -43,7 +46,12 @@ const Createchannel = () => {
         }
       );
 
-      console.log("Channel created:", res.data);
+      if (res.status==201)
+      {
+         console.log("Channel created:", res.data);
+        navigate("/channel")
+      }
+     
     } catch (err) {
       console.error("Create channel error:", err.response?.data || err.message);
     }

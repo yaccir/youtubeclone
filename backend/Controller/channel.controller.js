@@ -1,8 +1,11 @@
 import channelModel from "../Models/Channel.model.js";
+import userModel from "../Models/User.Model.js";
 
 export async function createChannel(req, res) {
   try {
     const { channelName, channelDescription } = req.body;
+    const {id,email}=req.user;
+    
 
     // basic validation
     if (!channelName) {
@@ -23,13 +26,19 @@ export async function createChannel(req, res) {
     const newChannel = await channelModel.create({
       channelName,              
       channelDescription,
-      channelprofile
+      channelprofile,
+      userid:id,
+      useremail:email
     });
+
+    
 
     res.status(201).json({
       message: "Channel created successfully",
       channel: newChannel
     });
+
+    
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

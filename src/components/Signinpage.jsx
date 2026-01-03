@@ -62,7 +62,7 @@ const Signinpage = () => {
 
         if(res.data.token)
         {
-          localStorage.setItem("token", JSON.stringify(res.data.token));
+          localStorage.setItem("token",res.data.token);
           dispatch(settoken(true))
 
           navigate("/")

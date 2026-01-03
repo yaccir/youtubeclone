@@ -15,6 +15,12 @@ const channelSchema = new mongoose.Schema(
     channelDescription: {
       type: String,
       required: true
+    },
+    useremail:{
+      type:String
+    },
+    userid:{
+       type: mongoose.Schema.Types.ObjectId
     }
   },
   { timestamps: true }

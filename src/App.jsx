@@ -8,6 +8,7 @@ import Uploadvideo from "./components/Uploadvideo";
 import Signinpage from "./components/Signinpage";
 import Createchannel from "./components/Createchannel";
 import Channelview from "./components/Channelview";
+import ViewChannels from "./components/Viewchannels";
 
 
 function App()
@@ -51,6 +52,24 @@ function App()
       <div>
           <Header/>
           <Createchannel/>
+      </div>
+    
+    },
+        {
+      path:"/channel",
+      element:
+      <div>
+          <Header/>
+          <Channelview/>
+      </div>
+    
+    },
+       {
+      path:"/viewchannels",
+      element:
+      <div>
+          <Header/>
+          <ViewChannels/>
       </div>
     
     },
