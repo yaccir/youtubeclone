@@ -23,6 +23,11 @@ else
   navigate("/signin");
   
 }
+
+function handleviewchannel()
+{
+  navigate("/viewchannels")
+}
 function handlesignin()
 {
 navigate("/signin")
@@ -81,6 +86,7 @@ navigate("/")
       {/* RIGHT SECTION */}
       <div className="button-container">
         <button onClick={handlechannel} className="btnheader">Create Channel</button>
+        <button onClick={handleviewchannel} className="btnheader">View Channels</button>
 
         <button onClick={handlesignin} className={sinout?"vis2":"signin btnheader"}>
           <img
