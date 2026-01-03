@@ -20,7 +20,7 @@ export async function createChannel(req, res) {
 
     // channel image URL
     const channelprofile = req.file
-      ? `${process.env.BASE_URL}/uploads/channelprofile/${req.file.filename}`
+      ? `/uploads/channelprofile/${req.file.filename}`
       : null;
 
     const newChannel = await channelModel.create({

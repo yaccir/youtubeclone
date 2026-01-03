@@ -5,7 +5,7 @@ import "/src/css/viewChannels.css";
 const ViewChannels = () => {
   const [channels, setChannels] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  console.log(channels)
   useEffect(() => {
     fetchChannels();
   }, []);
@@ -21,6 +21,7 @@ const fetchChannels = async () => {
     });
 
     setChannels(res.data);
+  
   } catch (error) {
     console.error("Error fetching channels", error);
   } finally {
@@ -44,7 +45,7 @@ const fetchChannels = async () => {
           {channels.map((channel) => (
             <div className="channel-card" key={channel._id}>
               <img
-                src={channel.channelProfile}
+                src={`http://localhost:8085${channel.channelprofile}`}
                 alt={channel.channelName}
                 className="channel-image"
               />
