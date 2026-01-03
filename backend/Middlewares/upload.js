@@ -1,20 +1,30 @@
 import multer from "multer";
 import fs from "fs";
+import path from "path";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    if (file.fieldname === "thumbnail") {
-      fs.mkdirSync("uploads/thumbnails", { recursive: true });
-      cb(null, "uploads/thumbnails");
-    } else {
-      fs.mkdirSync("uploads/videos", { recursive: true });
-      cb(null, "uploads/videos");
-    }
+    let folder = file.fieldname === "thumbnail" ? "uploads/thumbnails" : "uploads/videos";
+    fs.mkdirSync(folder, { recursive: true });
+    cb(null, folder);
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "_" + file.originalname);
+    const ext = path.extname(file.originalname);
+    const name = path.basename(file.originalname, ext).replace(/\s+/g, "_");
+    cb(null, `${Date.now()}_${name}${ext}`);
   }
 });
 
-const upload = multer({ storage });
+const upload = multer({
+  storage,
+  limits: { fileSize: 1024 * 1024 * 1024 }, // 1GB max
+  fileFilter: (req, file, cb) => {
+    if (file.fieldname === "video" && !file.mimetype.startsWith("video/"))
+      return cb(new Error("Only video files allowed!"), false);
+    if (file.fieldname === "thumbnail" && !file.mimetype.startsWith("image/"))
+      return cb(new Error("Only image files allowed!"), false);
+    cb(null, true);
+  }
+});
+
 export default upload;

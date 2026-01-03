@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "/src/css/channelview.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Channelview = () => {
+  const navigate=useNavigate()
   const { id } = useParams();                 // channel id from URL
   const [channel, setChannel] = useState(null);
   const [loading, setLoading] = useState(true);

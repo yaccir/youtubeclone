@@ -44,31 +44,29 @@ export async function fetchvideolistbyId(req, res) {
   }
 }
 
-// Upload video file + metadata
 export const addvideotofolder = async (req, res) => {
   try {
     const videoFile = req.files.video?.[0];
     const thumbFile = req.files.thumbnail?.[0];
 
-    if (!videoFile) {
-      return res.status(400).json({ message: "Video required" });
-    }
+    if (!videoFile) return res.status(400).json({ message: "Video required" });
 
     const video = new youtubeModel({
       title: req.body.title,
       description: req.body.description,
+      category: req.body.category,
       videoUrl: `/uploads/videos/${videoFile.filename}`,
-      thumbnailUrl: thumbFile
-        ? `/uploads/thumbnails/${thumbFile.filename}`
-        : null
+      thumbnailUrl: thumbFile ? `/uploads/thumbnails/${thumbFile.filename}` : null,
+      userId: req.user._id,
+      createdAt: new Date()
     });
 
     await video.save();
 
-    res.status(201).json(video);
+    res.status(201).json({ success: true, message: "Video uploaded successfully", video });
   } catch (err) {
     console.error("UPLOAD ERROR:", err);
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 

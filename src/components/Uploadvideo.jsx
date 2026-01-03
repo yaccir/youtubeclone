@@ -1,57 +1,111 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import "/src/css/uploadvideo.css";
 
 const Uploadvideo = () => {
   const { register, handleSubmit, reset } = useForm();
+  const [thumbnailPreview, setThumbnailPreview] = useState(null);
+  const [videoPreview, setVideoPreview] = useState(null);
 
-  const onSubmit =  (data) => {
-    // data contains text fields, NOT file itself
-
+  const onSubmit = async (data) => {
     const formData = new FormData();
-
-    formData.append("video", data.video[0]); // VERY IMPORTANT
     formData.append("title", data.title);
+    formData.append("description", data.description);
+    formData.append("category", data.category); // new field
     formData.append("thumbnail", data.thumbnail[0]);
-      formData.append("description", data.description);
-      console.log(formData);
-    axios.post(
-      "http://localhost:8085/videolist",
-      formData
-    ).then((res)=>{console.log("Video uploaded");});
+    formData.append("video", data.video[0]);
 
-    
-    reset();
+    const token = localStorage.getItem("token");
+
+    try {
+      await axios.post("http://localhost:8085/videolist", formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      console.log("Video uploaded successfully");
+      reset();
+      setThumbnailPreview(null);
+      setVideoPreview(null);
+    } catch (error) {
+      console.error("Upload failed:", error.response?.data || error.message);
+    }
+  };
+
+  const handleThumbnailChange = (e) => {
+    const file = e.target.files[0];
+    setThumbnailPreview(file ? URL.createObjectURL(file) : null);
+  };
+
+  const handleVideoChange = (e) => {
+    const file = e.target.files[0];
+    setVideoPreview(file ? URL.createObjectURL(file) : null);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="upload-form" onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="form-title">Upload Video</h2>
 
       <input
         type="text"
         placeholder="Title"
+        className="form-input"
         {...register("title", { required: true })}
       />
-       <input
-        type="file"
-        placeholder="thumbnail"
-        {...register("thumbnail", { required: true })}
-      />
-      
 
       <input
         type="text"
-        placeholder="description"
+        placeholder="Description"
+        className="form-input"
         {...register("description", { required: true })}
       />
+
+      {/* Category input (dropdown) */}
+      <select
+        className="form-input"
+        {...register("category", { required: true })}
+        defaultValue=""
+      >
+        <option value="" disabled>
+          Select Category
+        </option>
+        <option value="Technology">Technology</option>
+        <option value="Education">Education</option>
+        <option value="Entertainment">Entertainment</option>
+        <option value="Gaming">Gaming</option>
+        <option value="Music">Music</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <input
+        type="file"
+        accept="image/*"
+        className="form-input"
+        {...register("thumbnail", { required: true })}
+        onChange={handleThumbnailChange}
+      />
+      {thumbnailPreview && (
+        <img
+          src={thumbnailPreview}
+          alt="Thumbnail Preview"
+          className="thumbnail-preview"
+        />
+      )}
 
       <input
         type="file"
         accept="video/*"
+        className="form-input"
         {...register("video", { required: true })}
+        onChange={handleVideoChange}
       />
+      {videoPreview && (
+        <video src={videoPreview} controls className="video-preview" />
+      )}
 
-      <button type="submit">Upload</button>
+      <button type="submit" className="upload-button">
+        Upload
+      </button>
     </form>
   );
 };
