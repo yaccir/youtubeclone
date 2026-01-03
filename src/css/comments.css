@@ -1,27 +1,134 @@
-.maincontainercomments{
-    display: flex;
-    margin: 18px;
-    width: 100%;
+.comments-section {
+  margin-top: 25px;
 }
 
-.commentsimage2{
-    height: 30px;
-    border-radius: 50%;
-    margin: 10px;
+/* Comment Input Box */
+.comment-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
 }
 
-.commentusername{
-    display: flex;
+.comment-box input {
+  flex: 1;
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  font-size: 14px;
 }
 
-.commentcontainer{
-    display: flex;
-    width: 700px;
-    justify-content: space-between;
+.comment-box button {
+  padding: 10px 18px;
+  border-radius: 25px;
+  background-color: #065fd4;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
 }
-.commenteditdel{
-    display: flex;
+
+.comment-box button:hover {
+  background-color: #0546a0;
 }
-.likeunlikecomment{
-    display: flex;
+
+/* Profile Image */
+.comment-profile {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Comment Item */
+.comment-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.comment-content {
+  flex: 1;
+}
+
+/* Header: username + date + actions */
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.comment-username {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+
+.comment-date {
+  font-size: 12px;
+  color: gray;
+}
+
+.comment-actions button {
+  background-color: #e8e8e8;
+  border: none;
+  border-radius: 5px;
+  padding: 3px 7px;
+  margin-left: 5px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.comment-actions button:hover {
+  background-color: #d4d4d4;
+}
+
+/* Comment Text */
+.comment-text {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+/* Like/Unlike Buttons */
+.comment-like {
+  display: flex;
+  gap: 8px;
+}
+
+.comment-like button {
+  padding: 4px 10px;
+  border-radius: 15px;
+  background-color: #e8e8e8;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.comment-like button:hover {
+  background-color: #d4d4d4;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .comment-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .comment-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .comment-actions button {
+    margin-left: 0;
+  }
 }

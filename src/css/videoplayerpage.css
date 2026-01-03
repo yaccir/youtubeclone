@@ -1,117 +1,177 @@
-.main-video-container{
+/* Main container for video player page */
+.main-video-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin: 30px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-
-.videocontainer2{
-
+/* Video & details container */
+.videocontainer2 {
+    flex: 1 1 60%;
     display: flex;
-    justify-content: space-around;
-
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* @media (max-width:950px) {
-    .videocontainer2{
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    .videocontainer3{
-        width: 500px;
-    }
-} */
-
-.videoplayer{
-    width: 800px;
-}
-
-.videocontainer3{
-    width: 30%;
-    height: auto;
-    background-color: aquamarine;
-}
-
-.videosubscribecont{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-}
-
-.usersubscribeicon{
-    height: 30px;
-    
-}
-.sbbtn{
-    display: flex;
-    justify-content: space-between;
-}
-.subscribebtn{
-    width: 100px;
-    height: 40px;
+/* Video player styling */
+.videoplayer {
+    width: 100%;
+    max-width: 800px;
     border-radius: 10px;
+    background-color: black;
 }
 
-.like{
-    height: 30px;
+/* Mini side video list */
+.videocontainer3 {
+    flex: 1 1 30%;
+    height: auto;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 10px;
+    overflow-y: auto;
+    max-height: 90vh;
 }
 
-.likecalculations{
+/* Channel info section */
+.videosubscribecont {
     display: flex;
-    width: 80px;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    gap: 5px;
-     border-radius: 10px;
-     background-color: white;
-     cursor: pointer;
-            border: none;
-    }
+    gap: 15px;
+    margin-top: 10px;
+}
 
-.unlikecalculations{
- height: 30px;
- cursor: pointer;
-   
+.usersubscribeicon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
 }
-.shareimg{
-    height: 30px;
+
+.videosubscribecont h2 {
+    margin: 0;
+    font-size: 20px;
 }
-.sharebtn{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 7px;
+
+.videosubscribecont p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
 }
-.viewsvideo{
+
+.subscribebtn {
+    margin-left: auto;
+    background-color: #cc0000;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.subscribebtn:hover {
+    background-color: #ff0000;
+}
+
+/* Likes / dislikes / share */
+.thumbsupcontainer {
     display: flex;
     gap: 15px;
-}
-.totalcmnts{
-    font-size: 27px;
-    font-weight: bold;
-}
-.comntsdiv{
-    margin-top: 15px;
-}
-.ddesc{
-    background-color: rgb(233, 233, 233);
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-.thumbsupcontainer{
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
+    margin-top: 10px;
 }
 
-.unlikebtnn{
-    border-radius: 10px;
-    background-color: white;
-    border: none;
-    justify-content: center;
+.likecalculations,
+.unlikebtnn,
+.sharebtn {
+    display: flex;
     align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.likecalculations:hover,
+.unlikebtnn:hover,
+.sharebtn:hover {
+    background-color: #e0e0e0;
+}
+
+.like,
+.unlikecalculations,
+.shareimg {
+    width: 25px;
+    height: 25px;
+}
+
+/* Views and posted date */
+.viewsvideo {
+    display: flex;
+    gap: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Description box */
+.ddesc {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 10px;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* Comments section */
+.comntsdiv {
+    margin-top: 20px;
+}
+
+.totalcmnts {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 1000px) {
+    .main-video-container {
+        flex-direction: column;
+        margin: 20px;
+    }
+    .videocontainer2, .videocontainer3 {
+        flex: 1 1 100%;
+    }
+    .videocontainer3 {
+        max-height: none;
+        margin-top: 20px;
+    }
+    .videoplayer {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .videosubscribecont h2 {
+        font-size: 18px;
+    }
+    .subscribebtn {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+    .thumbsupcontainer {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .ddesc {
+        font-size: 14px;
+        padding: 10px;
+    }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import "/src/css/uploadvideo.css";
@@ -8,27 +8,47 @@ const Uploadvideo = () => {
   const [thumbnailPreview, setThumbnailPreview] = useState(null);
   const [videoPreview, setVideoPreview] = useState(null);
 
+  /* 🧹 Cleanup object URLs */
+  useEffect(() => {
+    return () => {
+      if (thumbnailPreview) URL.revokeObjectURL(thumbnailPreview);
+      if (videoPreview) URL.revokeObjectURL(videoPreview);
+    };
+  }, [thumbnailPreview, videoPreview]);
+
   const onSubmit = async (data) => {
     const formData = new FormData();
+
     formData.append("title", data.title);
     formData.append("description", data.description);
-    formData.append("category", data.category); // new field
+    formData.append("category", data.category);
     formData.append("thumbnail", data.thumbnail[0]);
     formData.append("video", data.video[0]);
 
-    const token = localStorage.getItem("token");
+    /* 🔐 Sanitize token */
+    let token = localStorage.getItem("token");
+    token = token?.replace(/"/g, "");
 
     try {
-      await axios.post("http://localhost:8085/videolist", formData, {
-        headers: { Authorization: `Bearer ${token}` },
+    const res=  await axios.post("http://localhost:8085/videolist", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
+
+      if(res.status==201)
+        alert("video uploaded successfully")
 
       console.log("Video uploaded successfully");
       reset();
       setThumbnailPreview(null);
       setVideoPreview(null);
+
     } catch (error) {
-      console.error("Upload failed:", error.response?.data || error.message);
+      console.error(
+        "Upload failed:",
+        error.response?.data || error.message
+      );
     }
   };
 
@@ -60,15 +80,12 @@ const Uploadvideo = () => {
         {...register("description", { required: true })}
       />
 
-      {/* Category input (dropdown) */}
       <select
         className="form-input"
         {...register("category", { required: true })}
         defaultValue=""
       >
-        <option value="" disabled>
-          Select Category
-        </option>
+        <option value="" disabled>Select Category</option>
         <option value="Technology">Technology</option>
         <option value="Education">Education</option>
         <option value="Entertainment">Entertainment</option>
@@ -84,6 +101,7 @@ const Uploadvideo = () => {
         {...register("thumbnail", { required: true })}
         onChange={handleThumbnailChange}
       />
+
       {thumbnailPreview && (
         <img
           src={thumbnailPreview}
@@ -99,8 +117,13 @@ const Uploadvideo = () => {
         {...register("video", { required: true })}
         onChange={handleVideoChange}
       />
+
       {videoPreview && (
-        <video src={videoPreview} controls className="video-preview" />
+        <video
+          src={videoPreview}
+          controls
+          className="video-preview"
+        />
       )}
 
       <button type="submit" className="upload-button">

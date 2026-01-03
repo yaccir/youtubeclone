@@ -1,9 +1,11 @@
 import React from 'react'
 import "/src/css/aside.css"
+import { useSelector } from 'react-redux'
 
 const Asidesection = () => {
+  const fl=useSelector((store)=>store.youtube.burger)
   return (
-    <div className='asidesection'>
+    <div className={fl?"hdn":'asidesection'}>
             <div>
                 <div><button className='asidebtns'>
                   <img className='asideimages' src="/src/images/asideimages/home.gif" alt="" />

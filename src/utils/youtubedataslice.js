@@ -4,7 +4,8 @@ const youtubeSlice=createSlice({
 name:"youtube",
 initialState:{
     items:[],
-    token:false
+    token:false,
+    burger:false
 },
 reducers:{
     fetchvid:(state,action)=>{
@@ -13,6 +14,9 @@ reducers:{
     },
     settoken:(state,action)=>{
         state.token=action.payload;
+    },
+    setburger:(state)=>{
+        state.burger=!state.burger;
     }
 
 
@@ -20,5 +24,5 @@ reducers:{
 
 });
 
-export const {fetchvid,settoken}=youtubeSlice.actions;
+export const {fetchvid,setburger,settoken}=youtubeSlice.actions;
 export default youtubeSlice.reducer;

@@ -49,7 +49,7 @@ const Createchannel = () => {
       if (res.status==201)
       {
          console.log("Channel created:", res.data);
-        navigate("/channel")
+        navigate("/viewchannels")
       }
      
     } catch (err) {

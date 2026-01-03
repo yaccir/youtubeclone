@@ -12,6 +12,7 @@ const Signinpage = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm();
 
@@ -20,6 +21,11 @@ const Signinpage = () => {
   const [profileFile, setProfileFile] = useState(null);
 
   const openRegister = () => setIsRegister(!isRegister);
+
+    function handlesignin()
+    {
+
+    }
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -51,6 +57,13 @@ const Signinpage = () => {
           { headers: { "Content-Type": "multipart/form-data" } }
         );
 
+        if(res.status==201)
+        {
+          setIsRegister(!isRegister)
+          alert("user registered successfully")
+          reset();
+          
+        }
         console.log("REGISTER RESPONSE:", res.data);
       } else {
         const res = await axios.post("http://localhost:8085/login", {
@@ -149,7 +162,7 @@ const Signinpage = () => {
           <p className="error-text">{errors.password.message}</p>
         )}
 
-        <button className="signin-btn" type="submit">
+        <button onClick={handlesignin} className="signin-btn" type="submit">
           {isRegister ? "Register" : "Sign in"}
         </button>
 

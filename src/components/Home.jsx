@@ -1,39 +1,32 @@
-import React from 'react'
-import Asidesection from './Asidesection'
-import Videocards from './Videocards'
-import "/src/css/home.css"
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import Asidesection from './Asidesection';
+import Videocards from './Videocards';
+import "/src/css/home.css";
 
 const Home = () => {
 
+  const [category, setCategory] = useState("All");
 
   return (
-    <div className='maindashboard' >
+    <div className='maindashboard'>
+      <Asidesection />
 
-        <Asidesection/>
-        <div className='containerr1'>
-          <div className='tpbtnscontain'>
+      <div className='containerr1'>
+        <div className='tpbtnscontain'>
 
-            <buttons className="topbtns" >All</buttons >
-            <buttons className="topbtns">Live</buttons >
-            <buttons className="topbtns">Wickets</buttons >
-            <buttons className="topbtns" >Gaming</buttons >
-            <buttons className="topbtns">News</buttons >
-            <buttons className="topbtns">Survival Skills</buttons >
-            <buttons className="topbtns">Villages</buttons >
-            <buttons className="topbtns">Factories</buttons >
-            <buttons className="topbtns">Roasting</buttons >
-            <buttons className="topbtns">Geography</buttons >
-            <buttons className="topbtns">Mountaineering</buttons >
-            <buttons className="topbtns">Action Thrillers</buttons >
-            <buttons className="topbtns">Astronomy</buttons >
+          <button className="topbtns" onClick={() => setCategory("All")}>All</button>
+          <button className="topbtns" onClick={() => setCategory("Technology")}>Technology</button>
+          <button className="topbtns" onClick={() => setCategory("Education")}>Education</button>
+          <button className="topbtns" onClick={() => setCategory("Gaming")}>Gaming</button>
+          <button className="topbtns" onClick={() => setCategory("Entertainment")}>Entertainment</button>
+          <button className="topbtns" onClick={() => setCategory("Music")}>Music</button>
 
-          </div>
-        <Videocards/>
         </div>
-       
-    </div>
-  )
-}
 
-export default Home
+        <Videocards category={category} />
+      </div>
+    </div>
+  );
+};
+
+export default Home;

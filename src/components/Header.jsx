@@ -1,21 +1,24 @@
 import React, { useState } from "react";
 import "../css/header.css";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { settoken } from "../utils/youtubedataslice";
+import { useDispatch, useSelector } from "react-redux";
+import { setburger, settoken } from "../utils/youtubedataslice";
 
 const Header = () => {
 const navigate=useNavigate();
+
+  
+  const dispatch=useDispatch()
 // const token=localStorage.getItem("token")
 // const [sinout ,setsinout]=useState(token);
 
 const sinout=localStorage.getItem("token")
+const [smscreen,setSmscreen]=useState(false);
 
 
 
 function handlechannel()
 {
-  
   
   if(sinout)
   navigate("/createchannel")
@@ -41,20 +44,28 @@ function handlesignout()
 navigate("/")
 }
 
+function gotohome()
+{
+  navigate("/")
+}
+
   return (
     <header className="headercontainer">
       
       {/* LEFT SECTION */}
-      <div className="burgercontainer">
-        <button className="burgerbutton" aria-label="Open menu">
+      <div  className="burgercontainer">
+        <button className="burgerbutton" onClick={()=>{
+          dispatch(setburger())
+        }} aria-label="Open menu">
           <img
             className="imageburger"
             src="/src/images/burger.png"
             alt="Menu"
           />
+          
         </button>
 
-        <div className="iconcontainer">
+        <div onClick={gotohome} className="iconcontainer">
           <img
             className="imageicon"
             src="/src/images/icon.png"
@@ -86,7 +97,7 @@ navigate("/")
       {/* RIGHT SECTION */}
       <div className="button-container">
         <button onClick={handlechannel} className="btnheader">Create Channel</button>
-        <button onClick={handleviewchannel} className="btnheader">View Channels</button>
+        <button onClick={handleviewchannel} className={sinout?"btnheader":"vis2"}>View Channels</button>
 
         <button onClick={handlesignin} className={sinout?"vis2":"signin btnheader"}>
           <img
