@@ -5,7 +5,8 @@ name:"youtube",
 initialState:{
     items:[],
     token:false,
-    burger:false
+    burger:false,
+    searchinput
 },
 reducers:{
     fetchvid:(state,action)=>{
@@ -17,6 +18,9 @@ reducers:{
     },
     setburger:(state)=>{
         state.burger=!state.burger;
+    },
+    setsearch:(state,action)=>{
+        state.searchinput=action.payload;
     }
 
 

@@ -15,19 +15,22 @@ const Videocards = ({category}) => {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        if(category){
+           console.log(category+"jhjhjhv")
+        if(category!==undefined){
+          console.log(category+"jhjhjhv")
+          
            const res = await axios.get(`http://localhost:8085/videolist/${category}`);
+           console.log(res.data)
+             dispatch(fetchvid(res.data.videos || []));
+          }
         }
-        const res = await axios.get("http://localhost:8085/videolist");
-        // dispatch the array of videos, not the whole object
-        dispatch(fetchvid(res.data.videos || []));
-      } catch (error) {
+         catch (error) {
         console.error("Video fetch failed:", error);
       }
     };
 
     fetchVideos();
-  }, [dispatch]);
+  }, [dispatch,category]);
 
   return (
     <div className='parentgrid'>

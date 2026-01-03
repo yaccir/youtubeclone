@@ -6,14 +6,33 @@ import youtubeModel from "../Models/Youtube.Model.js";
 export async function fetchvideolist(req, res) {
   try {
     // Fetch all videos, newest first
-    const videolist = await youtubeModel.find({}).sort({ createdAt: -1 });
-
+    
+       const {category}=req.params;
+      console.log(category)
+       // Fetch all videos, newest first
+    if (category!="all")
+    {
+      console.log(category)
+      const videolistbycat = await youtubeModel.find({category:category}).sort({ createdAt: -1 });
+        console.log(videolistbycat)
     // Return empty array if no videos
     return res.status(200).json({
       success: true,
+      videos: videolistbycat
+    });
+  }
+else{
+    const videolist = await youtubeModel.find({}).sort({ createdAt: -1 });
+  console.log(videolist)
+    // Return empty array if no videos
+    return res.status(200).json({
+      
+      success: true,
       videos: videolist
     });
-  } catch (err) {
+  } }
+  
+  catch (err) {
     console.error("Error fetching videos:", err);
     return res.status(500).json({
       success: false,

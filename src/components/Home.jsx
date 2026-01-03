@@ -5,7 +5,7 @@ import "/src/css/home.css";
 
 const Home = () => {
 
-  const [category, setCategory] = useState("All");
+  const [category, setCategory] = useState(null);
 
   return (
     <div className='maindashboard'>
@@ -14,7 +14,7 @@ const Home = () => {
       <div className='containerr1'>
         <div className='tpbtnscontain'>
 
-          <button className="topbtns" onClick={() => setCategory("All")}>All</button>
+          <button className="topbtns" onClick={() => setCategory("all")}>All</button>
           <button className="topbtns" onClick={() => setCategory("Technology")}>Technology</button>
           <button className="topbtns" onClick={() => setCategory("Education")}>Education</button>
           <button className="topbtns" onClick={() => setCategory("Gaming")}>Gaming</button>

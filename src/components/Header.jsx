@@ -13,9 +13,15 @@ const navigate=useNavigate();
 // const [sinout ,setsinout]=useState(token);
 
 const sinout=localStorage.getItem("token")
-const [smscreen,setSmscreen]=useState(false);
+const [search,setsearch]=useState(false);
+
+function handlesearchchange(e)
+{
+
+setsearch(e.target.value);
 
 
+}
 
 function handlechannel()
 {
@@ -78,7 +84,7 @@ function gotohome()
       {/* CENTER SEARCH */}
       <div className="searchmcont">
         <form className="searchcontt" onSubmit={(e) => e.preventDefault()}>
-          <input
+          <input onChange={handlesearchchange}
             className="searchinput"
             type="text"
             placeholder="Search"

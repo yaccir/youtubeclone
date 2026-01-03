@@ -11,8 +11,8 @@ import { verifytoken } from "../Middlewares/verifytoken.js";
 
 export  function youtuberoutes(app){
 
-app.get("/videolist",fetchvideolist)
-app.get("/videolist/:id",fetchvideolist)
+// app.get("/videolist",fetchvideolist)
+app.get("/videolist/:category",fetchvideolist)
 
 app.get("/videolist/:id",fetchvideolistbyId);
 
