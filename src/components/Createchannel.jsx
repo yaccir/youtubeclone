@@ -1,57 +1,72 @@
+// Importing React and hooks
 import React, { useState } from "react";
+
+// Importing react-hook-form for form validation
 import { useForm } from "react-hook-form";
+
+// Importing CSS specific to channel creation page
 import "/src/css/channel.css";
+
+// Axios for making API calls
 import axios from "axios";
+
+// Router hook to navigate after successful channel creation
 import { useNavigate } from "react-router-dom";
 
+// Component for creating a new channel
 const Createchannel = () => {
+  const navigate = useNavigate(); // Hook to programmatically navigate
 
-  const navigate=useNavigate()
+  // Setting up react-hook-form
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors } // To access form validation errors
   } = useForm();
 
-  const [preview, setPreview] = useState(null);
-  const [channelImage, setChannelImage] = useState(null);
+  const [preview, setPreview] = useState(null);       // Preview URL for channel image
+  const [channelImage, setChannelImage] = useState(null); // Actual file to send to backend
 
+  // Handle when user selects an image
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setChannelImage(file);
-      setPreview(URL.createObjectURL(file));
+      setChannelImage(file);                // Save file for submission
+      setPreview(URL.createObjectURL(file)); // Create preview URL
     }
   };
 
+  // Handle form submission
   const onSubmit = async (data) => {
     if (!channelImage) {
       alert("Please select a channel image");
       return;
     }
 
+    // Prepare form data for backend
     const formData = new FormData();
     formData.append("channelName", data.channelName);
     formData.append("channelDescription", data.description || "");
-    formData.append("channelprofile", channelImage); // MUST match backend
+    formData.append("channelprofile", channelImage); // Must match backend field
 
     try {
+      // POST request to backend
       const res = await axios.post(
         "http://localhost:8085/createchannel",
         formData,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
+            Authorization: `Bearer ${localStorage.getItem("token")}` // JWT token for authentication
           }
         }
       );
 
-      if (res.status==201)
-      {
-         console.log("Channel created:", res.data);
-        navigate("/viewchannels")
+      // On success, navigate to the channel list page
+      if (res.status === 201) {
+        console.log("Channel created:", res.data);
+        navigate("/viewchannels");
       }
-     
+
     } catch (err) {
       console.error("Create channel error:", err.response?.data || err.message);
     }
@@ -59,19 +74,20 @@ const Createchannel = () => {
 
   return (
     <div className="channel-container">
+      {/* Channel creation form */}
       <form className="channel-box" onSubmit={handleSubmit(onSubmit)}>
         <h2>Create your channel</h2>
         <p className="subtitle">
           Choose a name, description and profile picture
         </p>
 
-        {/* Channel Image */}
+        {/* Channel Image Upload */}
         <div className="channel-pic-wrapper">
           <label htmlFor="channelImage">
             <img
               src={
                 preview ||
-                "https://www.gstatic.com/youtube/img/creator/default_channel.png"
+                "https://www.gstatic.com/youtube/img/creator/default_channel.png" // Default image if no preview
               }
               alt="channel"
               className="channel-pic"
@@ -83,12 +99,12 @@ const Createchannel = () => {
             id="channelImage"
             accept="image/*"
             hidden
-            onChange={handleImageChange}
+            onChange={handleImageChange} // Handle file selection
           />
           <p className="upload-text">Upload channel picture</p>
         </div>
 
-        {/* Channel Name */}
+        {/* Channel Name Input */}
         <input
           type="text"
           placeholder="Channel name"
@@ -105,13 +121,14 @@ const Createchannel = () => {
           <p className="error-text">{errors.channelName.message}</p>
         )}
 
-        {/* Description */}
+        {/* Channel Description */}
         <textarea
           placeholder="Channel description (optional)"
           className="textarea"
           {...register("description")}
         />
 
+        {/* Submit Button */}
         <button type="submit" className="create-btn">
           Create Channel
         </button>
@@ -120,4 +137,5 @@ const Createchannel = () => {
   );
 };
 
+// Export the component
 export default Createchannel;

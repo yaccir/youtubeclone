@@ -7,18 +7,23 @@ import axios from 'axios';
 import Videocards from './Videocards';
 
 const Videoplayerpage = () => {
+  // State to store the video data, including comments
   const [watch, setWatch] = useState({ comments: [] });
-  const { id } = useParams();
 
+  // Get the video ID from the URL parameters
+  const { id } = useParams();
+  console.log(watch);
+
+  // Fetch video details from backend when component mounts or ID changes
   useEffect(() => {
-    axios.get(`http://localhost:8085/videolist/${id}`)
+    axios.get(`http://localhost:8085/videolistt/${id}`)
       .then((res) => {
-        setWatch(res.data);
+        setWatch(res.data); // store video object in state
       })
       .catch(err => console.error(err));
   }, [id]);
 
-  // format views
+  // Function to format views (e.g., 12K, 1.2M)
   const formatViews = (num) => {
     if (!num) return "0 views";
     if (num >= 1000000) return (num / 1000000).toFixed(1) + "M views";
@@ -26,7 +31,7 @@ const Videoplayerpage = () => {
     return num + " views";
   };
 
-  // format time as x days ago
+  // Function to format time as "x days ago"
   const formatTime = (date) => {
     const now = new Date();
     const posted = new Date(date);
@@ -37,16 +42,18 @@ const Videoplayerpage = () => {
 
   return (
     <div className='main-video-container'>
+
+      {/* MAIN VIDEO PLAYER SECTION */}
       <div className='videocontainer2'>
 
-        {/* VIDEO PLAYER */}
+        {/* VIDEO ELEMENT */}
         <video
           className='videoplayer'
           src={`http://localhost:8085${watch.videoUrl}`}
           controls
         />
 
-        {/* TITLE */}
+        {/* VIDEO TITLE */}
         <h1>{watch.title}</h1>
 
         {/* CHANNEL INFO */}
@@ -67,7 +74,7 @@ const Videoplayerpage = () => {
           <button className='subscribebtn'>Subscribe</button>
         </div>
 
-        {/* LIKES / DISLIKES / SHARE */}
+        {/* LIKE / DISLIKE / SHARE BUTTONS */}
         <div className='thumbsupcontainer'>
           <button className='likecalculations'>
             <img className='like' src="/src/images/asideimages/thumbsup.png" alt="" />
@@ -83,25 +90,25 @@ const Videoplayerpage = () => {
           </button>
         </div>
 
-        {/* VIEWS / DATE */}
+        {/* VIEWS AND UPLOAD DATE */}
         <div className='viewsvideo'>
           <p>{formatViews(watch.views)}</p>
           <p>{formatTime(watch.updatedAt)}</p>
         </div>
 
-        {/* DESCRIPTION */}
+        {/* VIDEO DESCRIPTION */}
         <p className='ddesc'>{watch.description}</p>
 
-        {/* COMMENTS */}
+        {/* COMMENTS SECTION */}
         <div className='comntsdiv'>
           <p className='totalcmnts'>{watch.comments?.length} Comments</p>
-          {/* <Comments  /> */}
+          <Comments /> {/* Component to display and add comments */}
         </div>
       </div>
 
-      {/* MINI SIDE VIDEO LIST */}
+      {/* MINI VIDEO LIST ON THE SIDE */}
       <div className='videocontainer3'>
-        <Videocards />
+        <Videocards /> {/* Shows related or recommended videos */}
       </div>
     </div>
   );

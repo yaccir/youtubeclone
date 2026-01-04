@@ -3,47 +3,67 @@ import "/src/css/Videocards.css";
 import Videocard from './Videocard';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchvid } from '../utils/youtubedataslice';
+import { fetchvid, setsearch } from '../utils/youtubedataslice';
 
-const Videocards = ({category}) => {
+const Videocards = ({ category }) => {
   const dispatch = useDispatch();
 
-  // items will store the array of videos
+  // Array of videos from Redux store
   const videos = useSelector(store => store.youtube.items || []);
-  console.log(videos)
+
+  // Search input from Redux store
+  const searchedvideos = useSelector(store => store.youtube.searchinput);
+  console.log(searchedvideos);
+  console.log(videos);
 
   useEffect(() => {
+    // Async function to fetch videos from backend
     const fetchVideos = async () => {
       try {
-           console.log(category+"jhjhjhv")
-        if(category!==undefined){
-          console.log(category+"jhjhjhv")
-          
-           const res = await axios.get(`http://localhost:8085/videolist/${category}`);
-           console.log(res.data)
-             dispatch(fetchvid(res.data.videos || []));
-          }
+        // If a category is selected, fetch videos by category
+        if (category) {
+          dispatch(setsearch("")); // Reset search input when category changes
+
+          const res = await axios.get(`http://localhost:8085/videolist/${category}`);
+          console.log("01 i am hit");
+          dispatch(fetchvid(res.data.videos || []));
         }
-         catch (error) {
+
+        // If search input is not empty, fetch videos by search term
+        if (searchedvideos !== "") {
+          const res = await axios.get(`http://localhost:8085/videolist/search/${searchedvideos}`);
+          console.log("03 i am hit" + searchedvideos);
+          dispatch(fetchvid(res.data.videos || []));
+        }
+      } catch (error) {
         console.error("Video fetch failed:", error);
       }
     };
 
+    // Call the fetch function
     fetchVideos();
-  }, [dispatch,category]);
+  }, [dispatch, category, searchedvideos]); // Run when category or search input changes
 
   return (
-    <div className='parentgrid'>
+    <div className="parentgrid">
+      {/* Display message if search input is active */}
+      {searchedvideos !== "" && <p>hello world</p>}
+
+      {/* Display message if no videos available */}
       {videos.length === 0 ? (
-        <p style={{ textAlign: 'center' }}>No videos available</p>
+        <p style={{ textAlign: "center" }}>No videos available</p>
       ) : (
-        videos.map(video => (
+        // Map through videos and render Videocard component for each
+        videos.map((video) => (
           <Videocard
             key={video._id}
             id={video._id}
             channelName={video.channelName || "Unknown Channel"}
-            channelProfile={video.channelProfile} // optional
-            thumbNail={video.thumbnailUrl || "https://www.gstatic.com/youtube/img/creator/default_channel.png"}
+            channelProfile={video.channelProfile}
+            thumbNail={
+              video.thumbnailUrl ||
+              "https://www.gstatic.com/youtube/img/creator/default_channel.png"
+            }
             title={video.title}
             views={video.views || 0}
             time={video.updatedAt}

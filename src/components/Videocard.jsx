@@ -5,11 +5,12 @@ import { useNavigate } from 'react-router-dom';
 const Videocard = ({ title, thumbNail, channelName, views, time, channelProfile, id }) => {
   const navigate = useNavigate();
 
+  // Navigate to watch page when video card is clicked
   function handleClick() {
     navigate(`/watch/${id}`);
   }
 
-  // Format views like "12K views"
+  // Format views like "12K views" or "1.2M views"
   const formatViews = (num) => {
     if (!num) return "0 views";
     if (num >= 1000000) return (num / 1000000).toFixed(1) + "M views";
@@ -17,12 +18,12 @@ const Videocard = ({ title, thumbNail, channelName, views, time, channelProfile,
     return num + " views";
   };
 
-  // Format time as "x days ago"
+  // Format time difference as "x days ago"
   const formatTime = (date) => {
     const now = new Date();
     const posted = new Date(date);
-    const diffTime = Math.abs(now - posted);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const diffTime = Math.abs(now - posted); // Difference in milliseconds
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Convert to days
     return diffDays <= 1 ? "1 day ago" : `${diffDays} days ago`;
   };
 
@@ -30,19 +31,25 @@ const Videocard = ({ title, thumbNail, channelName, views, time, channelProfile,
     <div className='parentvideocard' onClick={handleClick}>
       {/* Video Thumbnail */}
       <div className='imagethumbcont'>
-        <img className='thumbnailvideo' src={`http://localhost:8085${thumbNail}`} alt={title} />
+        <img
+          className='thumbnailvideo'
+          src={`http://localhost:8085${thumbNail}`}
+          alt={title}
+        />
       </div>
 
       {/* Video Details */}
       <div className='detailsconttaboutvideo'>
         <div>
-          {/* Channel Profile */}
+          {/* Channel Profile Picture */}
           <img
             className='channeliconuser'
             src={`http://localhost:8085${channelProfile}` || "https://www.gstatic.com/youtube/img/creator/default_channel.png"}
             alt={channelName}
           />
         </div>
+
+        {/* Video title, channel name, views, and upload time */}
         <div className='details2'>
           <h2 className='title2'>{title}</h2>
           <h3 className='uploadername'>{channelName}</h3>
