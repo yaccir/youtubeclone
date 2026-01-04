@@ -101,7 +101,7 @@ const Videoplayerpage = () => {
 
         {/* COMMENTS SECTION */}
         <div className='comntsdiv'>
-          <p className='totalcmnts'>{watch.comments?.length} Comments</p>
+         
           <Comments videoid={watch._id} /> {/* Component to display and add comments */}
         </div>
       </div>
