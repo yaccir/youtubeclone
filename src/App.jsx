@@ -68,7 +68,7 @@ function App() {
       )
     },
     {
-      path: "/uploadvideo", // Upload new video page
+      path: "/uploadvideo/:id", // Upload new video page
       element: (
         <div>
           <Header />

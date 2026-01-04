@@ -13,12 +13,13 @@ const Channelview = () => {
   const { id } = useParams();               // Extract channel ID from URL
   const [channel, setChannel] = useState(null); // State to store fetched channel data
   const [loading, setLoading] = useState(true); // State to track loading status
-
+console.log(channel)
   console.log(channel); // Debug: log channel object
 
   // Handler for "Upload Video" button click
   function handleuploadvideo() {
-    navigate("/uploadvideo");
+    const {_id}=channel
+    navigate(`/uploadvideo/${_id}`);
   }
 
   // Fetch channel data from backend on component mount or when ID changes

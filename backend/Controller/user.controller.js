@@ -57,6 +57,8 @@ export async function login(req, res) {
   try {
     // Extracting login credentials from the request body
     const { email, password } = req.body;
+    console.log("here")
+    console.log(req.body)
 
     // Finding user by email in the database
     const user = await userModel.findOne({ email });
@@ -69,14 +71,16 @@ export async function login(req, res) {
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid password" });
     }
+ 
 
     // Generating a JWT token with user ID and email as payload
     const token = jwt.sign(
-      { id: user._id, email: user.email },
+      { _id: user._id, email: user.email },
       "secretkey11",
       { expiresIn: "1d" }
     );
 
+       console.log(token)
     // Sending success response with token and user details
     res.status(200).json({
       message: "Login successful",

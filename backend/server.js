@@ -1,9 +1,10 @@
 // Importing required packages
-import express from "express";       // Express framework for server and routing
-import mongoose from "mongoose";     // Mongoose for MongoDB connection
-import { youtuberoutes } from "./Routes/youtuberoute.js"; // Importing all API routes
+import express from "express";       
+import mongoose from "mongoose";     
+import { youtuberoutes } from "./Routes/youtuberoute.js"; 
 import cors from "cors";             // CORS middleware to handle cross-origin requests
 import dotenv from "dotenv";         // For environment variable management
+import { commentroutes } from "./Routes/commentRoutes.js";
 
 // Initialize express app
 const app = express();
@@ -27,7 +28,7 @@ app.use("/uploads", express.static("uploads"));
 const PORT = 8085;
 
 // Connect to MongoDB using mongoose
-mongoose.connect('mongodb://127.0.0.1:27017/you')
+mongoose.connect('mongodb://127.0.0.1:27017/youtubebackend')
   .then(() => {
     console.log("Database connected successfully");
   })
@@ -47,3 +48,8 @@ app.get("/", () => {
 
 // Register all routes from youtuberoutes function
 youtuberoutes(app);
+
+
+//comment routes
+
+commentroutes(app);

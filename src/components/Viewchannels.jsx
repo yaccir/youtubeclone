@@ -7,7 +7,7 @@ const ViewChannels = () => {
   const navigate = useNavigate(); // to navigate to a specific channel page
   const [channels, setChannels] = useState([]); // state to store all channels
   const [loading, setLoading] = useState(true); // loading state
-  console.log(channels._);
+
 
   // Fetch all channels on component mount
   useEffect(() => {
@@ -16,6 +16,7 @@ const ViewChannels = () => {
 
   // Navigate to a specific channel's page when a channel card is clicked
   function handlechannelclick(id) {
+
     navigate(`/viewchannel/${id}`);
   }
 

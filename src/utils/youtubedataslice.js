@@ -16,7 +16,7 @@ const youtubeSlice = createSlice({
     settoken: (state, action) => {
       state.token = action.payload;
 
-      // ✅ keep localStorage in sync
+    
       if (action.payload) {
         localStorage.setItem("token", action.payload);
       } else {

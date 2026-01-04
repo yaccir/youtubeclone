@@ -2,10 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import "/src/css/uploadvideo.css";
+import { useParams } from "react-router-dom";
 
 const Uploadvideo = () => {
   // Initialize react-hook-form
   const { register, handleSubmit, reset } = useForm();
+  const chid=useParams();
+  console.log(chid)
+  const idd=chid.id;
+
+  console.log("Sending ID:", idd);
 
   // State to store previews for thumbnail and video
   const [thumbnailPreview, setThumbnailPreview] = useState(null);
@@ -36,11 +42,13 @@ const Uploadvideo = () => {
 
     try {
       // POST request to backend to upload video
-      const res = await axios.post("http://localhost:8085/videolist", formData, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Send token in Authorization header
-        },
-      });
+      console.log("Sending ID:", idd);
+     const res = await axios.post(`http://localhost:8085/videolist/${idd}`, formData, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
+
 
       // Notify success
       if (res.status === 201) alert("video uploaded successfully");

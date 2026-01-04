@@ -161,6 +161,9 @@ export const addvideotofolder = async (req, res) => {
       return res.status(400).json({ message: "Video file is required" });
     }
 
+   
+    const channelid=req.params.id
+
     // Extracting uploaded video file
     const videoFile = req.files.video[0];
 
@@ -168,11 +171,11 @@ export const addvideotofolder = async (req, res) => {
     const thumbFile = req.files.thumbnail?.[0];
 
     // Finding the channel associated with the logged-in user
-    const channel = await channelModel.findOne({ userId: req.user._id });
-
+    const channel = await channelModel.findById( channelid );
+    console.log(channel);
     // Logging execution flow for debugging
     console.log("i am here");
-    console.log(channel);
+    console.log(channelid);
 
     // If user does not have a channel, prevent video upload
     if (!channel) {

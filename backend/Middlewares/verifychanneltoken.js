@@ -23,6 +23,7 @@ export function verifychanneltoken(req, res, next) {
     // Verifying the JWT token using the secret key
     // If token is invalid or expired, an error will be thrown
     const decoded = jwt.verify(token, "secretkey11");
+    console.log(decoded)
 
     // Attaching decoded token data (user info) to request object
     req.user = decoded;

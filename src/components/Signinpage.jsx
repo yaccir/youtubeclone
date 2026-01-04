@@ -70,11 +70,12 @@ const Signinpage = () => {
           email: data.email,
           password: data.password
         });
+        console.log(res.data)
 
         // Save token in localStorage and update Redux store
         if(res.data.token) {
           localStorage.setItem("token", res.data.token);
-          dispatch(settoken(true));
+          dispatch(settoken(res.data.token));
           navigate("/"); // Redirect to homepage
         } else {
           navigate("/signin"); // Stay on login page if login fails

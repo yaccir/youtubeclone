@@ -9,6 +9,7 @@ export async function createChannel(req, res) {
   try {
     // Extracting channel name and description from the request body
     const { channelName, channelDescription } = req.body;
+    console.log(req.body)
 
     // Extracting authenticated user details added by authentication middleware
     const { id, email } = req.user;

@@ -24,7 +24,7 @@ export  function youtuberoutes(app){
 // app.get("/videolist",fetchvideolist)
 app.get("/videolist/:category",fetchvideolist)
 app.get("/videolistt/:id",fetchvideolistbyId);
-app.post(  "/videolist",verifytoken,upload.fields([
+app.post(  "/videolist/:id",verifytoken,upload.fields([
     { name: "video", maxCount: 1 },
     { name: "thumbnail", maxCount: 1 }
   ]),  addvideotofolder
