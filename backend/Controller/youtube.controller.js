@@ -11,11 +11,11 @@ export async function fetchvideolist(req, res) {
     const { category } = req.params;
 
     // Logging category for debugging
-    console.log(category);
+    
 
     // If category is not "all", fetch videos for the specific category
     if (category != "all") {
-      console.log(category);
+    
 
       // Fetching videos matching the category, sorted by newest first
       const videolistbycat = await youtubeModel
@@ -23,7 +23,7 @@ export async function fetchvideolist(req, res) {
         .sort({ createdAt: -1 });
 
       // Logging fetched videos for debugging
-      console.log(videolistbycat);
+ 
 
       // Sending response with category-based videos
       return res.status(200).json({
@@ -40,7 +40,7 @@ export async function fetchvideolist(req, res) {
         .sort({ createdAt: -1 });
 
       // Logging fetched videos for debugging
-      console.log(videolist);
+     
 
       // Sending response with all videos
       return res.status(200).json({
@@ -172,11 +172,9 @@ export const addvideotofolder = async (req, res) => {
 
     // Finding the channel associated with the logged-in user
     const channel = await channelModel.findById( channelid );
-    console.log(channel);
+   
     // Logging execution flow for debugging
-    console.log("i am here");
-    console.log(channelid);
-
+ 
     // If user does not have a channel, prevent video upload
     if (!channel) {
       return res.status(400).json({

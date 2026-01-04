@@ -9,6 +9,10 @@ const commentSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+       commenterEmail: {
+      type: String,
+      required: true
+    },
 
     // Profile image URL of the commenter
     commenterProfile: {
@@ -39,5 +43,5 @@ const commentSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Exporting the comment schema to be reused in other models
+
 export default commentSchema;

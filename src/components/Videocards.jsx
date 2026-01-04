@@ -13,8 +13,7 @@ const Videocards = ({ category }) => {
 
   // Search input from Redux store
   const searchedvideos = useSelector(store => store.youtube.searchinput);
-  console.log(searchedvideos);
-  console.log(videos);
+
 
   useEffect(() => {
     // Async function to fetch videos from backend
@@ -25,14 +24,17 @@ const Videocards = ({ category }) => {
           dispatch(setsearch("")); // Reset search input when category changes
 
           const res = await axios.get(`http://localhost:8085/videolist/${category}`);
-          console.log("01 i am hit");
+          
+          // console.log("01 i am hit");
+
           dispatch(fetchvid(res.data.videos || []));
+
         }
 
         // If search input is not empty, fetch videos by search term
         if (searchedvideos !== "") {
           const res = await axios.get(`http://localhost:8085/videolist/search/${searchedvideos}`);
-          console.log("03 i am hit" + searchedvideos);
+          // console.log("03 i am hit" + searchedvideos);
           dispatch(fetchvid(res.data.videos || []));
         }
       } catch (error) {

@@ -1,8 +1,9 @@
-import { getcomments } from "../Controller/comment.controller.js";
+import { getcomments, setcomments } from "../Controller/comment.controller.js";
 
 export function commentroutes(app)
 {
 
-    app.get("/comments",getcomments)
+    app.get("/comments/:id",getcomments)
+     app.post("/comments",setcomments)
 
 }

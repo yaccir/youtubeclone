@@ -12,7 +12,7 @@ const Videoplayerpage = () => {
 
   // Get the video ID from the URL parameters
   const { id } = useParams();
-  console.log(watch);
+  
 
   // Fetch video details from backend when component mounts or ID changes
   useEffect(() => {
