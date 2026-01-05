@@ -116,6 +116,7 @@
 
 .signinimage {
     height: 24px;
+    border-radius: 50%;
 }
 
 /*  MOBILE RESPONSIVE */

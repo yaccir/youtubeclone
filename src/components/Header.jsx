@@ -8,6 +8,7 @@ import axios from "axios";
 const Header = () => {
   const navigate = useNavigate(); // Hook to navigate programmatically
   const dispatch = useDispatch();
+  const [picc,setpicc]=useState(localStorage.getItem("pic"));
 
   // Redux state: the search input stored in global store
   const searchinput = useSelector((store) => store.youtube.searchinput);
@@ -19,15 +20,14 @@ const Header = () => {
   const sinout = localStorage.getItem("token");
 
   // Example effect that could run if token exists (currently empty axios call)
-  useEffect(() => {
-    if (sinout) {
-      axios(); // Placeholder: can be used to fetch user info if needed
-    }
-  }, [sinout]);
 
   // Handle search button click
   function handlesearchchange(e) {
     // Save the current input to Redux store for global usage
+    if(e.target.value=="")
+    {
+    alert("invalid input")
+    }
     dispatch(setsearch(inputfrsearch));
     setinputfrsearch(""); // Clear the input after searching
   }
@@ -50,7 +50,8 @@ const Header = () => {
 
   // Handle user sign-out
   function handlesignout() {
-    localStorage.removeItem("token"); // Remove JWT token
+    localStorage.removeItem("token");
+    localStorage.removeItem("pic");
     settoken(!sinout); // Update Redux (optional)
     navigate("/"); // Redirect to homepage
   }
@@ -123,7 +124,9 @@ const Header = () => {
 
         {/* Sign-out button, visible only if logged in */}
         <div className={sinout ? "signin btnheader" : "vis2"}>
-          <img className="signinimage" src="/src/images/signin.png" alt="Sign in" />
+         {!picc && <img className="signinimage" src="/src/images/signin.png" alt="Sign in" />}
+         {picc && <img className="signinimage" src={picc} alt="Sign in" />}
+         
           <button onClick={handlesignout}>Sign out</button>
         </div>
       </div>

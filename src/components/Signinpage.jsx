@@ -58,7 +58,7 @@ const Signinpage = () => {
           formData,
           { headers: { "Content-Type": "multipart/form-data" } }
         );
-
+        
         if(res.status === 201) {
           setIsRegister(false); // Switch back to login form
           alert("user registered successfully"); 
@@ -66,20 +66,41 @@ const Signinpage = () => {
         }
       } else {
         // Login
-        const res = await axios.post("http://localhost:8085/login", {
+      try{
+          const res = await axios.post("http://localhost:8085/login", {
           email: data.email,
           password: data.password
         });
-        console.log(res.data)
+      
+
 
         // Save token in localStorage and update Redux store
         if(res.data.token) {
           localStorage.setItem("token", res.data.token);
+          localStorage.setItem("pic", res.data.user.profilepic);
           dispatch(settoken(res.data.token));
           navigate("/"); // Redirect to homepage
         } else {
           navigate("/signin"); // Stay on login page if login fails
         }
+     
+      }
+      catch (error) {
+  // 
+  if (error.response) {
+    const status = error.response.status;
+
+    if (status === 404) {
+      alert("usernot found check email")
+    } else if (status === 401) {
+      alert("Invalid password");
+    } else {
+     alert("Server error:", status);
+    }
+  } else {
+    alert("Network error:", error.message);
+  }
+}
       }
     } catch (err) {
       console.error(err.response?.data || err.message); // Log backend or network errors
