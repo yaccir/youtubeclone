@@ -9,6 +9,8 @@ import Videocards from './Videocards';
 const Videoplayerpage = () => {
   // State to store the video data, including comments
   const [watch, setWatch] = useState({ comments: [] });
+  const [likes,setlikes]=useState(watch.likes);
+  const [unlike,unlikevideos]=useState(watch.dislikes);
 
   // Get the video ID from the URL parameters
   const { id } = useParams();
@@ -21,7 +23,7 @@ const Videoplayerpage = () => {
         setWatch(res.data); // store video object in state
       })
       .catch(err => console.error(err));
-  }, [id]);
+  }, [id,unlike,likes]);
 
   // Function to format views (e.g., 12K, 1.2M)
   const formatViews = (num) => {
@@ -39,6 +41,34 @@ const Videoplayerpage = () => {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays <= 1 ? "1 day ago" : `${diffDays} days ago`;
   };
+
+
+// Function to increment likes
+async function likeinc() {
+    try {
+        const response = await axios.put(`http://localhost:8085/likevideo/${watch._id}`);
+        console.log("Likes updated:", response.data.likes);
+
+        // Optionally update the UI
+          setlikes( response.data.likes);
+    } catch (error) {
+        console.error("Error liking video:", error.response?.data || error.message);
+    }
+}
+
+// Function to decrement likes
+async function likedec() {
+    try {
+        const response = await axios.put(`http://localhost:8085/unlikevideo/${watch._id}`);
+        console.log("Likes updated:", response.data.likes);
+
+        // Optionally update the UI
+       unlikevideos( response.data.likes);
+    } catch (error) {
+        console.error("Error unliking video:", error.response?.data || error.message);
+    }
+}
+
 
   return (
     <div className='main-video-container'>
@@ -76,11 +106,11 @@ const Videoplayerpage = () => {
 
         {/* LIKE / DISLIKE / SHARE BUTTONS */}
         <div className='thumbsupcontainer'>
-          <button className='likecalculations'>
+          <button onClick={likeinc} className='likecalculations'>
             <img className='like' src="/src/images/asideimages/thumbsup.png" alt="" />
             <p>{watch.likes}</p>
           </button>
-          <button className='unlikebtnn'>
+          <button  onClick ={likedec}className='unlikebtnn'>
             <img className='unlikecalculations' src="/src/images/asideimages/thumbsupun.png" alt="" />
             <p>{watch.dislikes}</p>
           </button>

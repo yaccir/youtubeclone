@@ -6,6 +6,7 @@ import cors from "cors";             // CORS middleware to handle cross-origin r
 import dotenv from "dotenv";         // For environment variable management
 import { commentroutes } from "./Routes/commentRoutes.js";
 import router from "./Routes/viewchannelroute.js";
+import { likeroutes } from "./Routes/likes.routes.js";
 
 // Initialize express app
 const app = express();
@@ -54,3 +55,5 @@ youtuberoutes(app);
 //comment routes
 
 commentroutes(app);
+
+likeroutes(app)
