@@ -1,4 +1,10 @@
                     YouTube Clone – MERN Stack
+
+imp=> this project contains front end and back end also 
+A. in youtube clone folder there is backend folder containing backend project  so in that folder run npm i separateli and then nmp start
+
+B. and in the front end part run npm i separately and then npm run dev
+
 1. Introduction
 
 The YouTube Clone – MERN Stack project is a full-stack web application designed to replicate the core functionality and workflow of the YouTube platform. The application is built using the MERN stack, which includes MongoDB, Express.js, React.js, and Node.js. This project demonstrates the implementation of modern web development concepts such as authentication, authorization, RESTful APIs, file uploads, state management, and responsive UI design.
