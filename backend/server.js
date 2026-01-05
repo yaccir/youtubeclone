@@ -5,6 +5,7 @@ import { youtuberoutes } from "./Routes/youtuberoute.js";
 import cors from "cors";             // CORS middleware to handle cross-origin requests
 import dotenv from "dotenv";         // For environment variable management
 import { commentroutes } from "./Routes/commentRoutes.js";
+import router from "./Routes/viewchannelroute.js";
 
 // Initialize express app
 const app = express();
@@ -20,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Enable CORS for all routes
 app.use(cors());
-
+app.use("/",router)
 // Serve static files from the uploads directory (for videos, thumbnails, profile pics)
 app.use("/uploads", express.static("uploads"));
 
@@ -42,9 +43,9 @@ app.listen(PORT, () => {
 });
 
 // Root route for testing
-app.get("/", () => {
-  console.log("Welcome to the root route");
-});
+// app.get("/", () => {
+//   console.log("Welcome to the root route");
+// });
 
 // Register all routes from youtuberoutes function
 youtuberoutes(app);

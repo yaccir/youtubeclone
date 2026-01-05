@@ -1,98 +1,133 @@
-// Importing React and hooks
 import React, { useEffect, useState } from "react";
-
-// Importing CSS specific to the channel view page
 import "/src/css/channelview.css";
-
-// Importing router hooks for navigation and reading URL params
 import { useNavigate, useParams } from "react-router-dom";
 
-// Component to display a single channel's page
 const Channelview = () => {
-  const navigate = useNavigate();           // Hook to programmatically navigate
-  const { id } = useParams();               // Extract channel ID from URL
-  const [channel, setChannel] = useState(null); // State to store fetched channel data
-  const [loading, setLoading] = useState(true); // State to track loading status
-console.log(channel)
-  console.log(channel); // Debug: log channel object
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  // Handler for "Upload Video" button click
-  function handleuploadvideo() {
-    const {_id}=channel
-    navigate(`/uploadvideo/${_id}`);
+  const [channel, setChannel] = useState(null);
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const token = localStorage.getItem("token");
+
+  /* Decode userId from token (basic) */
+  let loggedInUserId = null;
+  if (token) {
+    try {
+      loggedInUserId = JSON.parse(atob(token.split(".")[1])).id;
+    } catch {}
   }
 
-  // Fetch channel data from backend on component mount or when ID changes
-  useEffect(() => {
-    const token = localStorage.getItem("token"); // Get JWT token from localStorage
+  /* Upload video */
+  function handleUploadVideo() {
+    navigate(`/uploadvideo/${channel._id}`);
+  }
 
-    fetch(`http://localhost:8085/channelviewpage/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`, // Pass token in Authorization header
-      },
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          setChannel(data.channel); // Set channel state with fetched data
+  /* Delete video */
+  async function handleDeleteVideo(videoId) {
+    if (!window.confirm("Delete this video?")) return;
+
+    try {
+      await fetch(`http://localhost:8085/videos/${videoId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-        setLoading(false);          // Stop loading after fetch completes
-      })
-      .catch(err => {
-        console.error("Channel fetch error:", err);
-        setLoading(false);          // Stop loading if fetch fails
       });
+
+      setVideos(prev => prev.filter(v => v._id !== videoId));
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  /* Fetch channel + videos */
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const channelRes = await fetch(
+          `http://localhost:8085/channelviewpage/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+
+        const channelData = await channelRes.json();
+        if (channelData.success) {
+          setChannel(channelData.channel);
+
+          const videosRes = await fetch(
+            `http://localhost:8085/channel/${id}/videos`
+          );
+          const videosData = await videosRes.json();
+
+          if (videosData.success) {
+            setVideos(videosData.videos);
+          }
+        }
+      } catch (err) {
+        console.error("Channel fetch error:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
   }, [id]);
 
-  // Show loading state
+  /* Loading */
   if (loading) {
     return <h3 style={{ textAlign: "center" }}>Loading channel...</h3>;
   }
 
-  // Show error if channel not found
+  /* Not found */
   if (!channel) {
     return <h3 style={{ textAlign: "center" }}>Channel not found</h3>;
   }
 
+  const isOwner = channel.userId === loggedInUserId;
+
   return (
     <div className="channel-view">
-      {/* Banner placeholder */}
       <div className="channel-banner"></div>
 
-      {/* Channel header with avatar, info, and upload button */}
       <div className="channel-header">
         <img
+          className="channel-avatar"
           src={
             channel.channelprofile
-              ? `http://localhost:8085${channel.channelprofile}` // Show uploaded channel profile
-              : "https://www.gstatic.com/youtube/img/creator/default_channel.png" // Fallback image
+              ? `http://localhost:8085${channel.channelprofile}`
+              : "https://www.gstatic.com/youtube/img/creator/default_channel.png"
           }
           alt="channel"
-          className="channel-avatar"
         />
 
         <div className="channel-info">
-          {/* Channel name */}
           <h2>{channel.channelName}</h2>
 
-          {/* Channel meta info: handle, subscribers, video count */}
           <p className="channel-meta">
             @{channel.channelName.toLowerCase().replace(/\s/g, "")} •{" "}
             {channel.subscribers || 0} subscribers •{" "}
-            {channel.videosCount || 0} videos
+            {videos.length} videos
           </p>
 
-          {/* Channel description */}
-          <p className="channel-desc">
-            {channel.channelDescription}
-          </p>
+          <p className="channel-desc">{channel.channelDescription}</p>
         </div>
 
-        {/* Button to navigate to video upload page */}
-        <button onClick={handleuploadvideo} className="subscribe-btn">Upload Video</button>
+        {isOwner && (
+          <button
+            className="subscribe-btn"
+            onClick={handleUploadVideo}
+          >
+            Upload Video
+          </button>
+        )}
       </div>
 
-      {/* Channel tabs: Home, Videos, Playlists, About */}
       <div className="channel-tabs">
         <span className="active">Home</span>
         <span>Videos</span>
@@ -100,13 +135,32 @@ console.log(channel)
         <span>About</span>
       </div>
 
-      {/* Videos section (currently placeholder) */}
       <div className="channel-videos">
-        {Array.from({ length: 8 }).map((_, index) => (
-          <div key={index} className="video-card">
-            <div className="thumbnail"></div>
-            <h4>Video title goes here</h4>
-            <p>12K views • 2 days ago</p>
+        {videos.length === 0 && (
+          <p style={{ textAlign: "center" }}>
+            No videos uploaded yet
+          </p>
+        )}
+
+        {videos.map(video => (
+          <div key={video._id} className="video-card">
+            <img
+              className="thumbnail"
+              src={`http://localhost:8085${video.thumbnailUrl}`}
+              alt=""
+            />
+
+            <h4>{video.title}</h4>
+            <p>{video.views} views</p>
+
+            {isOwner && (
+              <button
+                className="delete-video-btn"
+                onClick={() => handleDeleteVideo(video._id)}
+              >
+                Delete
+              </button>
+            )}
           </div>
         ))}
       </div>
@@ -114,5 +168,4 @@ console.log(channel)
   );
 };
 
-// Exporting the Channelview component
 export default Channelview;
