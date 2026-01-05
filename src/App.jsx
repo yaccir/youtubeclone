@@ -9,6 +9,8 @@ import Signinpage from "./components/Signinpage";
 import Createchannel from "./components/Createchannel";
 import Channelview from "./components/Channelview";
 import ViewChannels from "./components/Viewchannels";
+import NotFound from "./components/NotFound";
+import Footer from "./components/footer";
 
 function App() {
   // Create router configuration
@@ -19,6 +21,7 @@ function App() {
         <div>
           <Header />  {/* Header component */}
           <Home />    {/* Home component showing categories and videos */}
+           <Footer/>
         </div>
       )
     },
@@ -28,6 +31,7 @@ function App() {
         <div>
           <Header />
           <Videoplayerpage /> {/* Video player and comments section */}
+           <Footer/>
         </div>
       )
     },
@@ -37,6 +41,7 @@ function App() {
         <div>
           <Header />
           <Signinpage />
+           <Footer/>
         </div>
       )
     },
@@ -46,6 +51,7 @@ function App() {
         <div>
           <Header />
           <Createchannel />
+           <Footer/>
         </div>
       )
     },
@@ -55,6 +61,7 @@ function App() {
         <div>
           <Header />
           <Channelview />
+           <Footer/>
         </div>
       )
     },
@@ -64,6 +71,7 @@ function App() {
         <div>
           <Header />
           <ViewChannels />
+           <Footer/>
         </div>
       )
     },
@@ -73,6 +81,17 @@ function App() {
         <div>
           <Header />
           <Uploadvideo />
+           <Footer/>
+        </div>
+      )
+    },
+      {
+      path: "/*", // Upload new video page
+      element: (
+        <div>
+          <Header />
+          <NotFound/>
+          <Footer/>
         </div>
       )
     },

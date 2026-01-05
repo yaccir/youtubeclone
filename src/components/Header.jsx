@@ -24,10 +24,7 @@ const Header = () => {
   // Handle search button click
   function handlesearchchange(e) {
     // Save the current input to Redux store for global usage
-    if(e.target.value=="")
-    {
-    alert("invalid input")
-    }
+ 
     dispatch(setsearch(inputfrsearch));
     setinputfrsearch(""); // Clear the input after searching
   }
